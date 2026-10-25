@@ -84,6 +84,8 @@
 .lk-room:not(.is-ready) * { animation-play-state: paused !important; }
 .lk-room button { font: inherit; color: inherit; cursor: pointer; }
 .fl-logo { object-fit: contain; }
+/* A logo in an SVG box fills it, as the brand mark it stands for. */
+:is(.lk-wheel-logo, .lk-seal-logo) > :is(.fl-icon, .fl-logo) { display: block; width: 100%; height: 100%; }
 .fl-icon { display: inline-block; width: 1em; height: 1em; flex: none; vertical-align: baseline; overflow: visible; }
 
 /* Atmosphere */

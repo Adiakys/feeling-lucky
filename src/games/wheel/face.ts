@@ -124,7 +124,7 @@ export class WheelFace extends LuckyElement {
           <circle r="66" fill="url(#${prefix}-gold)" />
           <circle r="58" fill="url(#${prefix}-hub)" />
           ${rosette.map((angle) => svg`<ellipse rx="44" ry="15" transform="rotate(${angle})" fill="none" stroke="#f3d488" stroke-opacity=".35" stroke-width=".6" />`)}
-          <foreignObject class="lk-wheel-logo" x="-17" y="-17" width="34" height="34">${this.room.logo()}</foreignObject>
+          <foreignObject class="lk-wheel-logo" x="-17" y="-20" width="34" height="40">${this.room.logo()}</foreignObject>
           ${boostMarks.map(
             (mark) => svg`
               <g class="lk-wheel-badge" transform=${mark.badge}>

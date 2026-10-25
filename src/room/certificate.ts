@@ -130,7 +130,7 @@ export class Certificate extends LuckyElement {
                     <circle r="34" fill="none" stroke="#8a6420" stroke-opacity=".5" stroke-dasharray="1.5 3" />
                     <path id="lk-seal-path" d="M-26 0a26 26 0 1 1 52 0a26 26 0 1 1 -52 0" fill="none" />
                     <text font-size="7.5" font-weight="700" fill="#6e5a3a" letter-spacing="1.6"><textPath href="#lk-seal-path">${this.t(this.claimed ? 'cert.sealClaimed' : 'cert.seal')}</textPath></text>
-                    <foreignObject class="lk-seal-logo" x="-12" y="-12" width="24" height="24">${room.logo()}</foreignObject>
+                    <foreignObject class="lk-seal-logo" x="-12" y="-14" width="24" height="28">${room.logo()}</foreignObject>
                   </svg>
                 </div>
                 <div class="lk-info">
