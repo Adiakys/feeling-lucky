@@ -4,7 +4,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { keyed } from 'lit/directives/keyed.js';
 import { html as staticHtml, unsafeStatic } from 'lit/static-html.js';
 import { ArrowLeft, Clover, Volume2, VolumeX } from 'lucide';
-import type { Dealer, GameId, Messages, Player, Prize, Win } from '../config/types';
+import type { Dealer, GameId, Messages, Multiplayer, Player, Prize, Win } from '../config/types';
 import { boardOf, resolveVariant } from '../engine/awards';
 import type { Outcome } from '../engine/outcome';
 import { random } from '../engine/random';
@@ -29,6 +29,7 @@ import './theme';
 declare module '../engine/rig' {
   interface Decisions {
     locale: { context: Record<string, never>; value: string };
+    multiplayer: { context: Record<string, never>; value: boolean };
   }
 }
 
@@ -42,6 +43,8 @@ export interface RoomConfig {
   // undefined: the host page's language.
   locale?: string;
   messages: Record<string, Messages>;
+  // undefined: the card tables are single player.
+  multiplayer?: Multiplayer;
   onWin?: (win: Win) => void;
   onClaim?: (win: Win) => Promise<void>;
   // null: no developer menu; without a hash, no password.
@@ -58,8 +61,15 @@ const GAMES: Record<GameId, string> = {
   holdem: 'fl-holdem',
 };
 
-// On its bonus day the slot is the slot of the day.
-const tagOf = (game: GameId) => (game === 'slot' && gameBoost('slot') > 1 ? (machineOfDay() === 'takeoff' ? 'fl-takeoff' : 'fl-breakaway') : GAMES[game]);
+// On its bonus day the slot is the slot of the day; with a multiplayer server the card tables are shared.
+const tagOf = (game: GameId, shared: boolean) =>
+  shared && PRIVATE_GAMES.includes(game)
+    ? `fl-${game}-shared`
+    : game === 'slot' && gameBoost('slot') > 1
+      ? machineOfDay() === 'takeoff'
+        ? 'fl-takeoff'
+        : 'fl-breakaway'
+      : GAMES[game];
 
 const roomGuilloche = guilloche(700, 450, 1.4);
 
@@ -114,6 +124,7 @@ export class Room extends LuckyElement {
       this.dutyCheck = rigChanged.value;
       checkDuty();
     }
+    if (this.view !== 'lobby' && this.shared && PRIVATE_GAMES.includes(this.view)) void import('../multiplayer');
     if (!this.room || (localeLoaded(locale) && (changed.has('config') || this.room.locale !== locale))) this.room = this.context();
     fx.confetti = this.theme ? THEME_COLORS[this.theme].confetti : undefined;
     const request = restartRequest.value;
@@ -128,6 +139,11 @@ export class Room extends LuckyElement {
 
   private get dealers(): Dealer[] {
     return this.config.dealers ?? [{ image: defaultDealer }];
+  }
+
+  // With a multiplayer server the card tables are shared, unless the developer menu plays them single player.
+  private get shared() {
+    return !!this.config.multiplayer && decide('multiplayer', {}, () => true);
   }
 
   // The configured language, else the page's, unless the developer menu forces one.
@@ -147,6 +163,7 @@ export class Room extends LuckyElement {
       prizeIds: prizes.map((prize) => prize.id),
       board: boardOf(prizes),
       player,
+      multiplayer: this.config.multiplayer,
       dealers: this.dealers,
       locale,
       locales: [...new Set([...BUILT_IN_LOCALES, ...Object.keys(messages)])],
@@ -403,7 +420,7 @@ export class Room extends LuckyElement {
                 @page=${(event: CustomEvent<number>) => (this.lobbyPage = event.detail)}
                 @play=${(event: CustomEvent<GameId>) => this.go(event.detail)}
               ></fl-lobby>`
-            : keyed(this.round, staticHtml`<${unsafeStatic(tagOf(view))} .options=${this.options}></${unsafeStatic(tagOf(view))}>`)}
+            : keyed(this.round, staticHtml`<${unsafeStatic(tagOf(view, this.shared))} .options=${this.options}></${unsafeStatic(tagOf(view, this.shared))}>`)}
         </div>
 
         ${this.certificate

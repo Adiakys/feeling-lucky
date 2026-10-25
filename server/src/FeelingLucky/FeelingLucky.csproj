@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Adiakys.FeelingLucky</PackageId>
+    <RootNamespace>FeelingLucky</RootNamespace>
+    <Version>0.0.0</Version>
+    <Description>Multiplayer blackjack and Texas Hold'em tables for the feeling-lucky library, as ASP.NET Core endpoints.</Description>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Adiakys/feeling-lucky</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <InternalsVisibleTo Include="FeelingLucky.Tests" />
+  </ItemGroup>
+
+</Project>

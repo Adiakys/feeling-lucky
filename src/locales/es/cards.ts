@@ -17,6 +17,13 @@ export default {
     you: 'Tú',
     dealer: 'Banca',
     deal: 'Repartir',
+    player: 'Jugador',
+    stand: 'Levantarse de la mesa',
+    sit: 'Siéntate aquí',
+    chooseSeat: 'Elige un asiento',
+    dealingIn: 'Se reparte en {seconds}s',
+    playIn: '{seconds}s para jugar',
+    nextHand: 'Juegas desde la próxima mano',
   },
   blackjack: {
     print: 'Banca se planta en 17 · Blackjack de picas: jackpot',

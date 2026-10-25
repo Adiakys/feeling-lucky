@@ -41,6 +41,13 @@ export interface Player {
   avatar?: string;
 }
 
+// A server of the multiplayer card tables, by its base path or URL, e.g. '/feeling-lucky'. headers: sent with every
+// request, e.g. a bearer token, asked for again each time.
+export interface Multiplayer {
+  url: string;
+  headers?: Resolvable<Record<string, string>>;
+}
+
 export type Messages = { [key: string]: string | Messages };
 
 export interface FeelingLuckyConfig<V extends Variant = Variant> {
@@ -53,6 +60,7 @@ export interface FeelingLuckyConfig<V extends Variant = Variant> {
   onWin?: (win: Win<V>) => void;
   onClaim?: (win: Win<V>) => Promise<void>;
   developer?: Resolvable<boolean | { passwordHash?: string }>;
+  multiplayer?: Resolvable<string | Multiplayer>;
 }
 
 export interface FeelingLucky<V extends Variant = Variant> {

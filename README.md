@@ -69,6 +69,7 @@ Every field takes a value, a function, or a function returning a Promise.
 | `onWin` | `(win: Win) => void` | none |
 | `onClaim` | `(win: Win) => Promise<void>`; shows **Claim** on the certificate | no claim button |
 | `developer` | `true` or `{ passwordHash? }`: enables the developer menu (Ctrl+Shift+L), behind a password when the hash is given | disabled |
+| `multiplayer` | base URL of a [multiplayer server](#multiplayer), or `{ url, headers? }` | single player |
 
 ```ts
 interface Prize {
@@ -177,6 +178,55 @@ interface Dealer {
 
 Without `dealers`, the library's own illustrated dealer takes every shift; `dealers: []` leaves the tables without one.
 
+## Multiplayer
+
+Optional: with `multiplayer`, Blackjack and Texas Hold'em are played at shared tables, one per game, up to five players, each against the house.
+
+- **Seats:** players watch from the rail and pick a free seat, the same places for everyone; they can move or stand up between hands. A browser holds one seat per table, whatever its tabs; a signed-in user holds one across devices.
+- **Outcomes:** the server deals and draws them, with the same odds as single player, a dealer's bonus included; wins still reach `onWin` and `onClaim` in each player's browser.
+- **Fallback:** without the server the room plays single player; the developer menu switches between the two.
+- **Size:** the client code loads only when `multiplayer` is set.
+
+```ts
+createFeelingLucky({ prizes, multiplayer: '/feeling-lucky' });
+
+createFeelingLucky({
+  prizes,
+  multiplayer: { url: 'https://tables.example.com/feeling-lucky', headers: async () => ({ Authorization: `Bearer ${await token()}` }) },
+});
+```
+
+`headers` is asked for again on every request. On the same origin the browser's cookies go along, so the server sees the signed-in user.
+
+### Server
+
+In your ASP.NET Core app, from NuGet:
+
+```bash
+dotnet add package Adiakys.FeelingLucky
+```
+
+```cs
+builder.Services.AddFeelingLucky();
+app.MapFeelingLucky();                       // /feeling-lucky, chain .RequireAuthorization() or .RequireCors() as needed
+```
+
+Or standalone, from the container:
+
+```bash
+docker run -p 8080:8080 -e Cors__Origins__0=https://app.example.com ghcr.io/adiakys/feeling-lucky-server
+```
+
+| Option (`FeelingLucky__*` in the container) | Default |
+|---|---|
+| `Seats` | 5 |
+| `Pace`: the time between two cards | 480 ms |
+| `BettingTime`: from the first bet to the deal | 10 s |
+| `ActionTime`: to hit, stand, call or fold | 20 s |
+| `TimeZone`: the dealers' shifts, IANA id | the server's |
+
+Tables live in memory: one instance, no storage.
+
 ## Structure
 
 ```
@@ -194,6 +244,7 @@ src/
   locales/      en, it, es, fr, de
 playground/     demo with sample prizes
 tests/          unit (engine), e2e
+server/         multiplayer server: the NuGet package, the standalone host, tests
 ```
 
 ### Rules
@@ -207,7 +258,7 @@ tests/          unit (engine), e2e
 
 ```bash
 npm install
-npm run dev        # playground
+npm run dev        # playground; multiplayer through docker compose up -d
 npm test           # unit tests
 npm run test:e2e   # one smoke test per game
 npm run typecheck
@@ -221,6 +272,7 @@ Publish a GitHub release or pre-release on a `v<version>` tag, e.g. `v1.2.0` or 
 - runs the checks;
 - publishes the package to npm: `latest` for a release, `next` for a pre-release;
 - attaches the packed `.tgz` to the release;
+- publishes the server to NuGet, with the `NUGET_API_KEY` secret, and its image to `ghcr.io/adiakys/feeling-lucky-server`, `latest` for a release;
 - deploys the playground to GitHub Pages, for releases only.
 
 ## License

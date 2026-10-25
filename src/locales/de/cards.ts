@@ -17,6 +17,13 @@ export default {
     you: 'Du',
     dealer: 'Bank',
     deal: 'Geben',
+    player: 'Spieler',
+    stand: 'Vom Tisch aufstehen',
+    sit: 'Hier hinsetzen',
+    chooseSeat: 'Wähle einen Platz',
+    dealingIn: 'Neue Hand in {seconds}s',
+    playIn: '{seconds}s zum Spielen',
+    nextHand: 'Du spielst ab der nächsten Hand',
   },
   blackjack: {
     print: 'Bank steht bei 17 · Pik-Blackjack: Jackpot',

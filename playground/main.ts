@@ -41,6 +41,7 @@ const lucky = createFeelingLucky({
     console.info('claimed', win);
   },
   developer: true,
+  multiplayer: import.meta.env.DEV ? '/feeling-lucky' : undefined,
 });
 
 lang.addEventListener('change', () => (document.documentElement.lang = lang.value));

@@ -182,6 +182,13 @@ export class Developer extends LuckyElement {
     this.requestUpdate();
   }
 
+  // The card tables switch between the server's shared ones and single player at once.
+  private setTables(value: string) {
+    room.singlePlayer = value === 'single' || undefined;
+    rigChanged.value++;
+    this.requestUpdate();
+  }
+
   // The theme is no game's: it applies at once, so the room renders again.
   private setTheme(value: string) {
     room.theme = (value || undefined) as Theme | 'none' | undefined;
@@ -329,6 +336,13 @@ export class Developer extends LuckyElement {
           )}
         </select>
       </label>
+      ${this.room.multiplayer
+        ? html`<label class="lk-dev-row">${this.t('developer.tables')}
+            <select @change=${(event: Event) => this.setTables(value(event))}>
+              ${this.choices([{ value: 'single', label: this.t('developer.singlePlayer') }], room.singlePlayer ? 'single' : undefined, this.t('developer.multiplayer'))}
+            </select>
+          </label>`
+        : nothing}
       ${this.room.dealers.length
         ? html`<label class="lk-dev-row">${this.t('developer.dealer')}
             <select @change=${(event: Event) => this.setDealer(value(event))}>

@@ -33,7 +33,7 @@
     }
   },
   "scripts": {
-    "dev": "vite playground",
+    "dev": "vite --config vite.demo.config.ts",
     "build": "vite build && tsc -p tsconfig.build.json",
     "test": "vitest run",
     "test:e2e": "playwright test",

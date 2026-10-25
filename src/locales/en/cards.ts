@@ -17,6 +17,13 @@ export default {
     you: 'You',
     dealer: 'Dealer',
     deal: 'Deal',
+    player: 'Player',
+    stand: 'Stand up',
+    sit: 'Sit here',
+    chooseSeat: 'Choose a seat',
+    dealingIn: 'Dealing in {seconds}s',
+    playIn: '{seconds}s to play',
+    nextHand: "You're in from the next hand",
   },
   blackjack: {
     print: 'Dealer stands on 17 · Blackjack of spades: jackpot',

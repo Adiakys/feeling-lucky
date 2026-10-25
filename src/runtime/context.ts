@@ -1,6 +1,6 @@
 import { createContext } from '@lit/context';
 import type { TemplateResult } from 'lit';
-import type { Dealer, GameId, Player, Prize, Tier } from '../config/types';
+import type { Dealer, GameId, Multiplayer, Player, Prize, Tier } from '../config/types';
 import type { Award, Board } from '../engine/awards';
 import type { Outcome } from '../engine/outcome';
 import type { Translate } from './i18n';
@@ -16,6 +16,7 @@ export interface RoomContext {
   prizeIds: string[];
   board: Board;
   player: Player | null;
+  multiplayer?: Multiplayer;
   dealers: Dealer[];
   locale: string;
   // Every language the room can speak: the built-in ones and the host's.

@@ -108,3 +108,34 @@
 .lk-ctable.has-dealer .lk-ctable-centre { top: 47%; }
 .lk-cards--blackjack .lk-ctable.has-dealer .lk-ctable-player { top: 54%; }
 .lk-cards--holdem .lk-ctable.has-dealer .lk-ctable-player { top: 70%; }
+
+/* Shared tables: every seat in the same place for everyone, each player's cards and chips in front of their seat,
+   the player's larger. */
+.lk-cards--shared .lk-ctable { --lk-seat-card: 7cqw; }
+.lk-cards--shared .lk-ctable.has-dealer { --lk-seat-card: 5.6cqw; }
+.lk-cards--shared .lk-ctable-shoe { right: 3%; }
+.lk-cards--shared .lk-seat { cursor: default; }
+.lk-seat.is-taken { z-index: 1; overflow: visible; box-shadow: inset 0 0 0 1.5px rgb(226 189 99 / 0.4), 0 4px 10px rgb(0 0 0 / 0.5); transition: box-shadow 0.25s ease, opacity 0.25s ease; }
+.lk-seat.is-taken :is(img, .lk-seat-avatar) { width: 100%; height: 100%; border-radius: 50%; }
+.lk-seat.is-taken b { position: absolute; top: calc(100% + 4px); left: 50%; max-width: calc(var(--lk-card-w) * 2); padding: 2px 8px; overflow: hidden; border-radius: 999px; translate: -50% 0; background: #120a07; color: var(--lk-gold-hi); box-shadow: inset 0 0 0 1px var(--lk-gold-line); font: 600 11px var(--font-sans, inherit); text-overflow: ellipsis; white-space: nowrap; }
+.lk-seat.is-taken.is-in { box-shadow: 0 0 0 2px #c9a04a, 0 4px 10px rgb(0 0 0 / 0.5); }
+.lk-seat.is-taken.is-won { box-shadow: 0 0 0 2px #f6dd96, 0 0 0 4px #2a120c, 0 0 0 5px #a77c2c, 0 0 16px rgb(255 211 110 / 0.55); }
+.lk-seat.is-taken.is-lost { opacity: 0.6; }
+.lk-seat-play { position: absolute; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; translate: -50% -50%; --lk-card-w: calc(var(--lk-seat-card) * 0.55); transition: opacity 0.3s ease; }
+.lk-seat-play.is-mine { z-index: 2; --lk-card-w: calc(var(--lk-seat-card) * 0.78); }
+.lk-seat-play .lk-split { gap: 4px; padding: 4px; }
+.lk-seat-play:not(.is-mine) .lk-hand-total { min-width: 26px; padding: 1px 7px; font-size: 11px; }
+.lk-seat-play:not(.is-mine) .lk-bet { box-shadow: none; background: none; }
+.lk-seat-play.is-folded { opacity: 0.35; }
+.lk-cards-status { margin: 0; padding: 5px 14px; border-radius: 999px; background: rgb(8 4 3 / 0.6); box-shadow: inset 0 0 0 1px var(--lk-gold-line); color: var(--lk-text-muted); font: 600 13px var(--font-sans, inherit); font-variant-numeric: tabular-nums; white-space: nowrap; animation: lk-fade-in 0.3s ease both; }
+.lk-seat.is-free { padding: 0; border: 0; }
+.lk-seat.is-free:not(:disabled) { cursor: pointer; }
+.lk-seat.is-free:not(:disabled):is(:hover, :focus-visible) { outline: none; color: var(--lk-gold-hi); box-shadow: inset 0 0 0 1.5px var(--lk-gold), 0 0 0 3px rgb(226 189 99 / 0.2), 0 0 16px rgb(255 211 110 / 0.45); }
+.lk-seat.is-free::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; padding: 5px 10px; border-radius: 8px; background: #1e0d06; box-shadow: inset 0 0 0 1px var(--lk-gold-line), 0 6px 16px rgb(0 0 0 / 0.55); color: var(--lk-gold-hi); font-size: 12px; font-weight: 600; white-space: nowrap; pointer-events: none; opacity: 0; translate: -50% 4px; transition: opacity 0.2s ease, translate 0.2s ease; }
+.lk-seat.is-free:not(:disabled):is(:hover, :focus-visible)::after { opacity: 1; translate: -50% 0; }
+/* Standing up: a badge on the player's own avatar, on the corner away from the felt, between hands. */
+.lk-seat .lk-seat-leave { position: absolute; top: 0; right: 0; z-index: 1; display: grid; place-items: center; width: 44%; aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; translate: 32% -32%; background: radial-gradient(circle at 35% 30%, #4a2410, #1e0d06 70%); box-shadow: inset 0 0 0 1px var(--lk-gold-line), 0 0 0 2px #2a120c, 0 3px 8px rgb(0 0 0 / 0.55); color: var(--lk-gold); font-size: calc(var(--lk-card-w) * 0.2); cursor: pointer; animation: lk-fade-in 0.25s ease both; transition: box-shadow 0.2s ease, color 0.2s ease; }
+.lk-seat .lk-seat-leave.is-left { right: auto; left: 0; translate: -32% -32%; }
+.lk-seat .lk-seat-leave:is(:hover, :focus-visible) { outline: none; color: #fff3c4; box-shadow: inset 0 0 0 1.5px var(--lk-gold-hi), 0 0 0 2px #2a120c, 0 0 14px rgb(255 211 110 / 0.7); }
+.lk-seat .lk-seat-leave::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; padding: 5px 10px; border-radius: 8px; background: #1e0d06; box-shadow: inset 0 0 0 1px var(--lk-gold-line), 0 6px 16px rgb(0 0 0 / 0.55); color: var(--lk-gold-hi); font: 600 12px var(--font-sans, inherit); white-space: nowrap; pointer-events: none; opacity: 0; translate: -50% 4px; transition: opacity 0.2s ease, translate 0.2s ease; }
+.lk-seat .lk-seat-leave:is(:hover, :focus-visible)::after { opacity: 1; translate: -50% 0; }

@@ -17,6 +17,13 @@ export default {
     you: 'Tu',
     dealer: 'Banco',
     deal: 'Distribuisci',
+    player: 'Giocatore',
+    stand: 'Alzati dal tavolo',
+    sit: 'Siediti qui',
+    chooseSeat: 'Scegli dove sederti',
+    dealingIn: 'Si distribuisce tra {seconds}s',
+    playIn: '{seconds}s per giocare',
+    nextHand: 'Giochi dalla prossima mano',
   },
   blackjack: {
     print: 'Il banco sta su 17 · Blackjack di picche: jackpot',
