@@ -272,7 +272,7 @@ Publish a GitHub release or pre-release on a `v<version>` tag, e.g. `v1.2.0` or 
 - runs the checks;
 - publishes the package to npm: `latest` for a release, `next` for a pre-release;
 - attaches the packed `.tgz` to the release;
-- publishes the server to NuGet, with the `NUGET_API_KEY` secret, and its image to `ghcr.io/adiakys/feeling-lucky-server`, `latest` for a release;
+- publishes the server to NuGet through Trusted Publishing, and its image to `ghcr.io/adiakys/feeling-lucky-server`, `latest` for a release;
 - deploys the playground to GitHub Pages, for releases only.
 
 ## License
