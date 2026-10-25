@@ -201,11 +201,11 @@ npm run build:demo # site/: the playground, as on GitHub Pages
 
 ## Release
 
-Bump `version` in `package.json`, then push a `v<version>` tag. The release workflow:
+Bump `version` in `package.json`, then publish a GitHub release or pre-release on a `v<version>` tag. The release workflow:
 - runs the checks;
-- publishes the package to npm;
-- attaches the packed `.tgz` to a GitHub release;
-- deploys the playground to GitHub Pages.
+- publishes the package to npm: `latest` for a release, `next` for a pre-release;
+- attaches the packed `.tgz` to the release;
+- deploys the playground to GitHub Pages, for releases only.
 
 ## License
 
