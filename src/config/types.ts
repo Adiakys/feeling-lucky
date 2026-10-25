@@ -38,9 +38,10 @@ export interface FeelingLuckyConfig {
   locale?: Resolvable<string>;
   messages?: Resolvable<Record<string, Messages>>;
   player?: Resolvable<Player>;
+  logo?: Resolvable<string>;
   onWin?: (win: Win) => void;
   onClaim?: (win: Win) => Promise<void>;
-  developer?: Resolvable<{ passwordHash: string }>;
+  developer?: Resolvable<boolean | { passwordHash?: string }>;
 }
 
 export interface FeelingLucky {

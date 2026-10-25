@@ -1,0 +1,55 @@
+export default {
+  games: {
+    scratch: {
+      name: 'Gratta e vinci',
+      summary: 'Tre loghi uguali',
+      rules: 'Tre loghi uguali vincono quel premio; la striscia in basso dice cosa paga, fino al jackpot.',
+    },
+  },
+  scratch: {
+    title: 'Gratta il premio',
+    rule: 'Tre loghi uguali vincono il premio. La striscia in basso dice cosa paga.',
+    award: 'vinci',
+    series: 'MI SENTO FORTUNATO · SERIE FORTUNA',
+    watermark: 'FORTUNA',
+    revealAll: 'Gratta tutto',
+    newTicket: 'Nuovo biglietto',
+    hint: 'Gratta con il mouse o con il dito',
+    locked: 'Si gratta con tre loghi uguali',
+    prize: 'PREMIO',
+    winningNumbers: 'NUMERI VINCENTI',
+    yourNumbers: 'I TUOI NUMERI',
+    game: 'GIOCO {n}',
+    topPrize: 'PREMIO MASSIMO: IL JACKPOT',
+    double: {
+      first: 'DOPPIA',
+      second: 'FORTUNA',
+      tagline: '2 modi di giocare!',
+      rules: 'Due modi di vincere: un numero vincente tra i tuoi numeri vince il premio sotto di lui; tre premi uguali vincono quel premio. I loghi non hanno premi sotto: tre loghi uguali vincono il jackpot.',
+    },
+    forever: {
+      first: 'PER',
+      middle: '∞',
+      second: 'SEMPRE',
+      jackpot: '3 loghi uguali: il jackpot',
+      pairRule: 'Due premi uguali vincono quel premio',
+      rules: 'Gioco 1: un numero vincente tra i tuoi numeri vince il premio sotto di lui; i loghi non hanno premi sotto, ma tre loghi uguali vincono il jackpot. Gioco 2: due premi uguali vincono quel premio.',
+    },
+    names: {
+      double: 'Doppia Fortuna',
+      forever: 'Per Sempre',
+    },
+    dayRules: 'Biglietto del giorno: i biglietti vincenti escono {n} volte più spesso.',
+  },
+  detail: {
+    scratch: {
+      small: 'tre loghi uguali',
+      big: 'tre loghi uguali',
+      jackpot: 'tre loghi uguali',
+      match: 'numero vincente',
+      three: 'tre premi uguali',
+      pair: 'due premi uguali',
+      logos: 'tre loghi uguali',
+    },
+  },
+};

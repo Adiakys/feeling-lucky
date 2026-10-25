@@ -1,0 +1,60 @@
+export default {
+  games: {
+    slot: {
+      name: 'Slot',
+      summary: 'Trois symboles sur la ligne',
+      rules: 'Deux lots identiques sur la ligne : un petit lot. Trois lots ou trois 7 : un gros lot. Trois ∞ : le jackpot.',
+    },
+  },
+  slot: {
+    sign: 'JACKPOT',
+    ready: 'Tirez le levier',
+    spinning: 'Les rouleaux tournent…',
+    line: 'Sur la ligne',
+    spin: 'Lancer les rouleaux',
+    lever: 'Tirer le levier',
+    result: {
+      none: 'Aucune combinaison',
+      small: 'Paire sur la ligne',
+      big: 'Brelan sur la ligne',
+      jackpot: 'Trois ∞',
+    },
+    names: {
+      takeoff: 'Décollage',
+      breakaway: 'Contre-attaque',
+    },
+    takeoff: {
+      rules: "Vol du jour : les gains sortent {n} fois plus souvent. L'avion décolle et le multiplicateur grimpe : encaissez avant qu'il s'envole. Dès ×2 vous gagnez un petit lot, dès ×10 un gros lot, à ×50 le jackpot : plus vous attendez, plus le lot est gros.",
+      start: 'Décoller',
+      again: 'Nouveau vol',
+      cashOut: 'Encaisser {prize}',
+      cashFrom: 'Encaissement dès ×{m}',
+      ready: 'Prêt au décollage',
+      gone: 'Envolé !',
+      cashed: 'Encaissé à ×{m} : {prize}',
+      hint: "Encaissez quand vous voulez : si l'avion s'envole avant, vous ne gagnez rien",
+    },
+    breakaway: {
+      rules: "Match du jour : les gains sortent {n} fois plus souvent. Avancez vers le but en choisissant une case par colonne : l'une cache le défenseur. Chaque colonne franchie fait monter le lot et vous pouvez encaisser quand vous voulez ; devant le but, tirez : un but vous rapporte ce que vous avez accumulé, jusqu'au jackpot.",
+      pick: 'Choisissez une case de la colonne {n}',
+      shoot: 'Choisissez où tirer',
+      tackled: 'Taclé ! Le lot accumulé est perdu',
+      goal: 'BUT !',
+      again: 'Nouveau match',
+      cashOut: 'Encaisser {prize}',
+      cashFrom: 'Encaissement dès la colonne {n}',
+      square: 'Colonne {column}, case {row}',
+      zone: 'Tirer dans la zone {n}',
+    },
+  },
+  detail: {
+    slot: {
+      small: 'paire sur la ligne',
+      big: 'brelan sur la ligne',
+      jackpot: 'trois ∞',
+      takeoff: 'encaissé à ×{m}',
+      breakaway: '{n} colonnes franchies',
+      goal: 'but',
+    },
+  },
+};

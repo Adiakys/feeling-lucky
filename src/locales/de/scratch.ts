@@ -1,0 +1,55 @@
+export default {
+  games: {
+    scratch: {
+      name: 'Rubbellos',
+      summary: 'Drei gleiche Logos',
+      rules: 'Drei gleiche Logos gewinnen diesen Preis; der Streifen unten zeigt, was er zahlt, bis zum Jackpot.',
+    },
+  },
+  scratch: {
+    title: 'Rubbel deinen Preis frei',
+    rule: 'Drei gleiche Logos gewinnen den Preis. Der Streifen unten zeigt, was er zahlt.',
+    award: 'Gewinn',
+    series: 'AUF GUT GLÜCK · SERIE FORTUNA',
+    watermark: 'GLÜCK',
+    revealAll: 'Alles freirubbeln',
+    newTicket: 'Neues Los',
+    hint: 'Rubbel mit der Maus oder dem Finger',
+    locked: 'Freirubbeln mit drei gleichen Logos',
+    prize: 'PREIS',
+    winningNumbers: 'GEWINNZAHLEN',
+    yourNumbers: 'DEINE ZAHLEN',
+    game: 'SPIEL {n}',
+    topPrize: 'HAUPTPREIS: DER JACKPOT',
+    double: {
+      first: 'DOPPEL',
+      second: 'GLÜCK',
+      tagline: '2 Spiele in einem!',
+      rules: 'Zwei Arten zu gewinnen: Eine Gewinnzahl unter deinen Zahlen gewinnt den Preis darunter; drei gleiche Preise gewinnen diesen Preis. Unter den Logos liegt kein Preis: Drei gleiche Logos gewinnen den Jackpot.',
+    },
+    forever: {
+      first: 'FÜR',
+      middle: '∞',
+      second: 'IMMER',
+      jackpot: '3 gleiche Logos: der Jackpot',
+      pairRule: 'Zwei gleiche Preise gewinnen diesen Preis',
+      rules: 'Spiel 1: Eine Gewinnzahl unter deinen Zahlen gewinnt den Preis darunter; unter den Logos liegt kein Preis, aber drei gleiche Logos gewinnen den Jackpot. Spiel 2: Zwei gleiche Preise gewinnen diesen Preis.',
+    },
+    names: {
+      double: 'Doppelglück',
+      forever: 'Für Immer',
+    },
+    dayRules: 'Los des Tages: Gewinnlose kommen {n}-mal so oft.',
+  },
+  detail: {
+    scratch: {
+      small: 'drei gleiche Logos',
+      big: 'drei gleiche Logos',
+      jackpot: 'drei gleiche Logos',
+      match: 'Gewinnzahl',
+      three: 'drei gleiche Preise',
+      pair: 'zwei gleiche Preise',
+      logos: 'drei gleiche Logos',
+    },
+  },
+};

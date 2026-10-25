@@ -1,0 +1,27 @@
+/* Pachinko */
+
+.lk-pachinko { display: flex; flex-direction: column; align-items: center; }
+.lk-pachinko-cab { padding: 14px; border-radius: 34px 34px 22px 22px; background: linear-gradient(180deg, #7a3d1c, #4a2410 45%, #2a1208); box-shadow: inset 0 0 0 2px #6b4a14, inset 0 0 0 4px #f3d488, inset 0 0 0 6px #8a6420, 0 40px 80px -20px rgb(0 0 0 / 0.85); }
+.lk-pachinko canvas { display: block; height: clamp(260px, calc(100cqh - 130px), 620px); width: auto; aspect-ratio: 400 / 620; border-radius: 24px 24px 12px 12px; touch-action: none; }
+.lk-pachinko-controls { display: flex; align-items: center; gap: 22px; margin-top: 20px; }
+.lk-pachinko canvas.is-aiming { cursor: pointer; }
+
+
+.lk-peg-score { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 12px; color: var(--lk-gold-hi); }
+.lk-peg-score > span { display: grid; grid-template-columns: auto auto; align-items: center; gap: 3px 6px; font-variant-numeric: tabular-nums; }
+.lk-peg-score b { font-size: 17px; }
+.lk-peg-score small { grid-column: 1 / -1; font-size: 11px; color: var(--lk-text-muted); }
+.lk-peg-red { color: #ff9aa7; }
+.lk-peg-power { color: #cda9e5; }
+.lk-peg-power.is-active { color: #f4c3ff; text-shadow: 0 0 15px #b159ee; }
+.lk-pachinko--color canvas { height: clamp(210px, calc(100cqh - 185px), 620px); }
+.lk-pachinko--color .lk-pachinko-controls { margin-top: 12px; }
+.lk-pachinko-cab { position: relative; }
+.lk-peg-fever { position: absolute; z-index: 2; inset: 25% -45% auto; display: grid; justify-items: center; gap: 6px; pointer-events: none; transform: rotate(-8deg); text-align: center; text-shadow: 0 3px 0 #74341b, 0 6px 25px #05051a; animation: lk-peg-fever-in 700ms var(--lk-ease-expo) both; }
+.lk-peg-fever span { color: #fff4d6; font: italic 700 32px var(--lk-display-font); }
+.lk-peg-fever strong { color: #ffe18d; font: 900 36px var(--lk-display-font); }
+.lk-pachinko-cab.is-fever { box-shadow: inset 0 0 0 3px #fff1ba, 0 0 45px #b279e788, 0 0 85px #f9c26f66; }
+.lk-peg-fever::before { content: ''; position: absolute; z-index: -1; inset: -140px -10%; background: repeating-conic-gradient(from 0deg, #ffd27055 0deg 9deg, transparent 9deg 22.5deg); mask-image: radial-gradient(ellipse, #000 5%, transparent 68%); animation: lk-peg-rays 12s linear infinite; }
+@keyframes lk-peg-fever-in { from { opacity: 0; transform: rotate(-8deg) scale(.45); } to { opacity: 1; transform: rotate(-8deg) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .lk-peg-fever { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .lk-peg-fever::before { display: none; } }

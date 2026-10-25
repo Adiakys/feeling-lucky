@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A casino room for any web app: classic casino games that award the prizes you configure.",
   "type": "module",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "files": [
     "dist"
   ],
@@ -16,7 +16,6 @@
       "import": "./dist/feeling-lucky.js"
     }
   },
-  "sideEffects": false,
   "scripts": {
     "dev": "vite playground",
     "build": "vite build && tsc -p tsconfig.build.json",
@@ -25,6 +24,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@lit/context": "^1.1.6",
     "@playwright/test": "^1.49.1",
     "happy-dom": "^21.0.4",
     "lit": "^3.3.3",
@@ -32,5 +32,7 @@
     "typescript": "^7.0.2",
     "vite": "^8.3.5",
     "vitest": "^5.0.5"
-  }
+  },
+  "unpkg": "./dist/feeling-lucky.iife.js",
+  "jsdelivr": "./dist/feeling-lucky.iife.js"
 }

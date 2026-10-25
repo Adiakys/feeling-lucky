@@ -1,0 +1,71 @@
+/* Card tables: the dealer on the straight edge, the player's seat on a padded leather rail. */
+
+.lk-cards { display: flex; flex-direction: column; align-items: center; width: min(920px, calc(100cqw - 24px), calc((100cqh - 110px) * 1.8)); }
+.lk-ctable { width: 100%; padding: 0 30px 50px; container-type: inline-size; --lk-card-w: 7cqw; }
+.lk-ctable-felt { position: relative; aspect-ratio: 9 / 5; border-radius: 0 0 50% 50% / 0 0 100% 100%; background: radial-gradient(60% 70% at 50% 28%, rgb(255 225 170 / 0.12), transparent 70%), radial-gradient(120% 100% at 50% 0%, #1d4636, #0a1d16 75%); box-shadow: 0 0 0 2px #c9a04a, 0 0 0 16px #2a120c, 0 0 0 17px #8a6420, 0 30px 60px -10px rgb(0 0 0 / 0.8), inset 0 0 70px rgb(0 0 0 / 0.55); }
+.lk-ctable-print { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.lk-ctable-print text { font: 600 15px var(--lk-display-font); letter-spacing: 0.22em; text-transform: uppercase; fill: rgb(243 212 136 / 0.42); }
+.lk-ctable-shoe { position: absolute; top: 5%; right: 9%; width: calc(var(--lk-card-w) * 1.05); aspect-ratio: 5 / 7; }
+.lk-ctable-shoe b { position: absolute; inset: 0; border-radius: calc(var(--lk-card-w) * 0.1); background: repeating-linear-gradient(45deg, rgb(243 212 136 / 0.18) 0 2px, transparent 2px 7px), linear-gradient(160deg, #7d1c24, #3e0b10); box-shadow: inset 0 0 0 calc(var(--lk-card-w) * 0.05) #f3e3bd, 0 3px 6px rgb(0 0 0 / 0.5); }
+.lk-ctable-shoe b:nth-child(2) { translate: -3px 3px; }
+.lk-ctable-shoe b:nth-child(3) { translate: -6px 6px; }
+.lk-ctable-dealer { position: absolute; top: 5%; left: 50%; display: grid; justify-items: center; gap: 6px; translate: -50% 0; }
+.lk-ctable-centre { position: absolute; top: 33%; left: 50%; display: grid; justify-items: center; gap: 10px; translate: -50% 0; }
+.lk-cards--blackjack .lk-ctable-centre { top: 37%; }
+.lk-cards--blackjack .lk-ctable-player { top: 47%; }
+.lk-ctable-bet { position: absolute; top: 81%; left: 50%; translate: -50% -50%; }
+.lk-bet { position: relative; display: block; width: calc(var(--lk-card-w) * 1.3); aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; background: radial-gradient(circle, rgb(0 0 0 / 0.2) 0 58%, transparent 60%); box-shadow: inset 0 0 0 2px rgb(243 212 136 / 0.55), inset 0 0 0 6px transparent, inset 0 0 0 7px rgb(243 212 136 / 0.22); cursor: default; }
+.lk-bet.is-open { cursor: pointer; animation: lk-bet-glow 1.6s ease-in-out infinite alternate; }
+.lk-bet:focus-visible { outline: 2px solid var(--lk-gold); outline-offset: 3px; }
+@keyframes lk-bet-glow { to { box-shadow: inset 0 0 0 2px #f6dd96, inset 0 0 0 6px transparent, inset 0 0 0 7px rgb(243 212 136 / 0.4), 0 0 18px rgb(255 211 110 / 0.45); } }
+.lk-bet-chip { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 64%; aspect-ratio: 1; border-radius: 50%; translate: calc(-50% + var(--stack, 0) * 72%) calc(-50% - var(--n) * 4px); transition: translate 0.35s var(--lk-ease-out); background: radial-gradient(circle, var(--lk-chip) 0 56%, rgb(251 243 223 / 0.6) 57% 59%, transparent 60%), repeating-conic-gradient(from 7deg, #fbf3df 0 16deg, var(--lk-chip) 16deg 45deg); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.35), 0 2px 0 rgb(0 0 0 / 0.45); animation: lk-chip-drop 0.38s var(--lk-ease-expo) both; }
+.lk-bet-chip img { width: 42%; }
+.lk-bet-chip.is-winning { animation: lk-chip-drop 0.38s var(--lk-ease-expo) both, lk-chip-win 0.5s ease-in-out infinite alternate; }
+.lk-cards-rack { margin-top: 18px; }
+.lk-cards--blackjack .lk-ctable-player { gap: calc(var(--lk-card-w) * 0.5); }
+.lk-split { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 12px; transition: box-shadow 0.3s ease; }
+.lk-split.is-active { box-shadow: 0 0 0 1.5px var(--lk-gold), 0 0 18px rgb(255 211 110 / 0.45); }
+.lk-hand-total small { margin-left: 4px; color: var(--lk-gold); font-size: 11px; }
+.lk-cards.is-clearing :is(.lk-card, .lk-bet-chip, .lk-board-slot) { animation: lk-card-collect 0.6s var(--lk-ease-in) forwards; }
+.lk-cards.is-clearing :is(.lk-cards-result, .lk-hand-total, .lk-hand-name b) { opacity: 0; transition: opacity 0.4s ease; }
+@keyframes lk-card-collect { to { opacity: 0; transform: translate(calc(var(--lk-card-w, 64px) * -5), calc(var(--lk-card-w, 64px) * -4)) rotate(-35deg) scale(0.8); } }
+.lk-ctable-player { position: absolute; top: 59%; left: 50%; display: flex; align-items: center; gap: 10px; translate: -50% 0; }
+.lk-cards--holdem .lk-ctable-player { top: 64%; }
+
+.lk-seat { position: absolute; display: grid; place-items: center; width: calc(var(--lk-card-w) * 0.8); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; color: rgb(226 189 99 / 0.55); font-size: calc(var(--lk-card-w) * 0.4); background: radial-gradient(circle at 40% 30%, #2a1a12, #120a07); box-shadow: inset 0 0 0 1.5px rgb(226 189 99 / 0.4), 0 4px 10px rgb(0 0 0 / 0.5); cursor: help; transition: color 0.2s ease, box-shadow 0.2s ease; }
+.lk-seat.is-mine { z-index: 1; width: calc(var(--lk-card-w) * 0.8); overflow: visible; background: radial-gradient(circle at 40% 30%, #3a1a0b, #1e0d06); box-shadow: 0 0 0 2px #f6dd96, 0 0 0 4px #2a120c, 0 0 0 5px #a77c2c, 0 0 16px rgb(255 211 110 / 0.55); cursor: default; }
+.lk-seat.is-mine :is(img, .lk-seat-avatar) { width: 100%; height: 100%; border-radius: 50%; }
+.lk-seat-avatar { fill: rgb(226 189 99 / 0.6); }
+.lk-seat.is-mine b { position: absolute; top: calc(100% + 4px); left: 50%; max-width: calc(var(--lk-card-w) * 2.4); padding: 2px 10px; overflow: hidden; border-radius: 999px; translate: -50% 0; background: linear-gradient(180deg, #f6dd96, #d4a94e 55%, #a77c2c); color: #2a1a05; font: 700 11px var(--font-sans, inherit); text-overflow: ellipsis; white-space: nowrap; box-shadow: 0 2px 6px rgb(0 0 0 / 0.5); }
+
+.lk-hand { display: flex; }
+.lk-hand > .lk-card + .lk-card { margin-left: calc(var(--lk-card-w) * -0.42); }
+.lk-board { display: flex; gap: calc(var(--lk-card-w) * 0.12); }
+.lk-board-slot { width: var(--lk-card-w); aspect-ratio: 5 / 7; border-radius: calc(var(--lk-card-w) * 0.1); box-shadow: inset 0 0 0 1.5px rgb(226 189 99 / 0.25); }
+.lk-hand-name { display: flex; align-items: center; gap: 8px; color: var(--lk-text-muted); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
+.lk-hand-name b, .lk-hand-total { padding: 2px 10px; border-radius: 999px; background: #120a07; color: var(--lk-gold-hi); box-shadow: inset 0 0 0 1px var(--lk-gold-line); font-size: 13px; font-weight: 700; letter-spacing: 0; text-transform: none; }
+.lk-hand-total { min-width: 34px; text-align: center; animation: lk-fade-in 0.3s ease both; }
+.lk-hand-total.is-bust { color: #ff9a8f; box-shadow: inset 0 0 0 1px rgb(255 120 110 / 0.5); }
+.lk-cards-result { margin: 0; padding: 6px 18px; border-radius: 999px; background: rgb(8 4 3 / 0.78); box-shadow: inset 0 0 0 1px var(--lk-gold-line); color: var(--lk-text); font: italic 700 18px var(--lk-display-font); white-space: nowrap; animation: lk-fade-in 0.3s ease both; }
+.lk-cards-result.is-won { color: #fff3c4; box-shadow: inset 0 0 0 1px var(--lk-gold), 0 0 24px rgb(255 211 110 / 0.45); }
+.lk-cards-controls { flex-direction: row; gap: 12px; margin-top: 22px; }
+
+.lk-card { position: relative; flex: none; width: var(--lk-card-w, 64px); aspect-ratio: 5 / 7; perspective: 700px; animation: lk-card-deal 0.45s var(--lk-ease-out) both; transition: translate 0.3s var(--lk-ease-out); }
+@keyframes lk-card-deal { from { opacity: 0; transform: translate(calc(var(--lk-card-w, 64px) * 4), calc(var(--lk-card-w, 64px) * -3)) rotate(-28deg); } }
+.lk-card-turn { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 0.55s var(--lk-ease-out); }
+.lk-card.is-hidden .lk-card-turn { transform: rotateY(180deg); }
+.lk-card-face, .lk-card-back { position: absolute; inset: 0; border-radius: calc(var(--lk-card-w, 64px) * 0.1); backface-visibility: hidden; }
+.lk-card-face { color: #1a120c; background: linear-gradient(160deg, #fffdf6, #efe6cf); box-shadow: inset 0 0 0 1px rgb(60 40 10 / 0.25), 0 4px 10px rgb(0 0 0 / 0.45); }
+.lk-card.is-red .lk-card-face { color: #b3202b; }
+.lk-card-back { transform: rotateY(180deg); background: repeating-linear-gradient(45deg, rgb(243 212 136 / 0.18) 0 2px, transparent 2px 7px), repeating-linear-gradient(-45deg, rgb(243 212 136 / 0.18) 0 2px, transparent 2px 7px), linear-gradient(160deg, #7d1c24, #3e0b10); box-shadow: inset 0 0 0 calc(var(--lk-card-w, 64px) * 0.05) #f3e3bd, inset 0 0 0 calc(var(--lk-card-w, 64px) * 0.065) #8a6420, 0 4px 10px rgb(0 0 0 / 0.45); }
+.lk-card-corner { position: absolute; top: 5%; left: 8%; display: grid; justify-items: center; line-height: 1; }
+.lk-card-corner b { font: 700 calc(var(--lk-card-w, 64px) * 0.26) var(--lk-display-font); }
+.lk-card-corner svg { width: calc(var(--lk-card-w, 64px) * 0.17); margin-top: 2px; fill: currentColor; }
+.lk-card-corner.is-turned { top: auto; left: auto; right: 8%; bottom: 5%; rotate: 180deg; }
+.lk-card-pip { position: absolute; top: 50%; left: 50%; width: calc(var(--lk-card-w, 64px) * 0.44); translate: -50% -50%; fill: currentColor; }
+.lk-card.is-lit { translate: 0 -8px; }
+.lk-card.is-lit .lk-card-face { box-shadow: inset 0 0 0 1px rgb(60 40 10 / 0.25), 0 0 0 2px #f6dd96, 0 0 18px rgb(255 211 110 / 0.8); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lk-page, .lk-veil, .lk-card, .lk-card-turn, .lk-mini-hand .lk-card + .lk-card { transition: none; animation: none; }
+}

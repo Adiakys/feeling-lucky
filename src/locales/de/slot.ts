@@ -1,0 +1,60 @@
+export default {
+  games: {
+    slot: {
+      name: 'Slot',
+      summary: 'Drei Symbole auf der Linie',
+      rules: 'Zwei gleiche Preise auf der Linie: ein kleiner Preis. Drei Preise oder drei 7: ein großer Preis. Drei ∞: der Jackpot.',
+    },
+  },
+  slot: {
+    sign: 'JACKPOT',
+    ready: 'Zieh den Hebel',
+    spinning: 'Die Walzen drehen sich…',
+    line: 'Auf der Linie',
+    spin: 'Walzen drehen',
+    lever: 'Hebel ziehen',
+    result: {
+      none: 'Keine Kombination',
+      small: 'Paar auf der Linie',
+      big: 'Drilling auf der Linie',
+      jackpot: 'Drei ∞',
+    },
+    names: {
+      takeoff: 'Abheben',
+      breakaway: 'Konter',
+    },
+    takeoff: {
+      rules: 'Flug des Tages: Gewinne kommen {n}-mal so oft. Das Flugzeug hebt ab und der Multiplikator steigt: Kassier, bevor es davonfliegt. Ab ×2 gewinnst du einen kleinen Preis, ab ×10 einen großen, bei ×50 den Jackpot: Je länger du wartest, desto größer der Preis.',
+      start: 'Abheben',
+      again: 'Neuer Flug',
+      cashOut: '{prize} kassieren',
+      cashFrom: 'Kassieren ab ×{m}',
+      ready: 'Bereit zum Abheben',
+      gone: 'Davongeflogen!',
+      cashed: 'Kassiert bei ×{m}: {prize}',
+      hint: 'Kassier, wann du willst: Fliegt das Flugzeug vorher davon, gewinnst du nichts',
+    },
+    breakaway: {
+      rules: 'Spiel des Tages: Gewinne kommen {n}-mal so oft. Lauf aufs Tor zu und wähl in jeder Spalte ein Feld: In einem steht der Verteidiger. Jede geschaffte Spalte erhöht den Preis und du kannst jederzeit kassieren; vor dem Tor schießt du: Mit dem Tor gewinnst du, was du gesammelt hast, bis zum Jackpot.',
+      pick: 'Wähl ein Feld in Spalte {n}',
+      shoot: 'Wähl, wohin du schießt',
+      tackled: 'Abgegrätscht! Der gesammelte Preis ist weg',
+      goal: 'TOR!',
+      again: 'Neues Spiel',
+      cashOut: '{prize} kassieren',
+      cashFrom: 'Kassieren ab Spalte {n}',
+      square: 'Spalte {column}, Feld {row}',
+      zone: 'Auf Zone {n} schießen',
+    },
+  },
+  detail: {
+    slot: {
+      small: 'Paar auf der Linie',
+      big: 'Drilling auf der Linie',
+      jackpot: 'drei ∞',
+      takeoff: 'kassiert bei ×{m}',
+      breakaway: '{n} Spalten geschafft',
+      goal: 'Tor',
+    },
+  },
+};

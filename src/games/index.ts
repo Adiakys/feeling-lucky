@@ -1,0 +1,9 @@
+import './wheel/wheel';
+import './slot/slot';
+import './slot/takeoff';
+import './slot/breakaway';
+import './roulette/roulette';
+import './pachinko/pachinko';
+import './scratch/scratch';
+import './blackjack/blackjack';
+import './holdem/holdem';

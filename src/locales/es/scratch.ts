@@ -1,0 +1,55 @@
+export default {
+  games: {
+    scratch: {
+      name: 'Rasca y gana',
+      summary: 'Tres logos iguales',
+      rules: 'Tres logos iguales ganan ese premio; la franja de abajo dice cuánto paga, hasta el jackpot.',
+    },
+  },
+  scratch: {
+    title: 'Rasca el premio',
+    rule: 'Tres logos iguales ganan el premio. La franja de abajo dice cuánto paga.',
+    award: 'ganas',
+    series: 'VOY A TENER SUERTE · SERIE FORTUNA',
+    watermark: 'SUERTE',
+    revealAll: 'Rasca todo',
+    newTicket: 'Nuevo boleto',
+    hint: 'Rasca con el ratón o con el dedo',
+    locked: 'Se rasca con tres logos iguales',
+    prize: 'PREMIO',
+    winningNumbers: 'NÚMEROS GANADORES',
+    yourNumbers: 'TUS NÚMEROS',
+    game: 'JUEGO {n}',
+    topPrize: 'PREMIO MÁXIMO: EL JACKPOT',
+    double: {
+      first: 'DOBLE',
+      second: 'SUERTE',
+      tagline: '¡2 formas de jugar!',
+      rules: 'Dos formas de ganar: un número ganador entre tus números gana el premio que tiene debajo; tres premios iguales ganan ese premio. Los logos no tienen premio debajo: tres logos iguales ganan el jackpot.',
+    },
+    forever: {
+      first: 'PARA',
+      middle: '∞',
+      second: 'SIEMPRE',
+      jackpot: '3 logos iguales: el jackpot',
+      pairRule: 'Dos premios iguales ganan ese premio',
+      rules: 'Juego 1: un número ganador entre tus números gana el premio que tiene debajo; los logos no tienen premio debajo, pero tres logos iguales ganan el jackpot. Juego 2: dos premios iguales ganan ese premio.',
+    },
+    names: {
+      double: 'Doble Suerte',
+      forever: 'Para Siempre',
+    },
+    dayRules: 'Boleto del día: los boletos ganadores salen {n} veces más a menudo.',
+  },
+  detail: {
+    scratch: {
+      small: 'tres logos iguales',
+      big: 'tres logos iguales',
+      jackpot: 'tres logos iguales',
+      match: 'número ganador',
+      three: 'tres premios iguales',
+      pair: 'dos premios iguales',
+      logos: 'tres logos iguales',
+    },
+  },
+};

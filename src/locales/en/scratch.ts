@@ -1,0 +1,55 @@
+export default {
+  games: {
+    scratch: {
+      name: 'Scratch card',
+      summary: 'Three matching logos',
+      rules: 'Three matching logos win that prize; the strip at the bottom says what it pays, up to the jackpot.',
+    },
+  },
+  scratch: {
+    title: 'Scratch the prize',
+    rule: 'Three matching logos win the prize. The strip at the bottom says what it pays.',
+    award: 'you win',
+    series: 'FEELING LUCKY · FORTUNE SERIES',
+    watermark: 'LUCKY',
+    revealAll: 'Scratch all',
+    newTicket: 'New ticket',
+    hint: 'Scratch with the mouse or a finger',
+    locked: 'Scratch it with three matching logos',
+    prize: 'PRIZE',
+    winningNumbers: 'WINNING NUMBERS',
+    yourNumbers: 'YOUR NUMBERS',
+    game: 'GAME {n}',
+    topPrize: 'TOP PRIZE: THE JACKPOT',
+    double: {
+      first: 'DOUBLE',
+      second: 'LUCK',
+      tagline: '2 ways to play!',
+      rules: 'Two ways to win: a winning number among your numbers wins the prize under it; three equal prizes win that prize. Logos have no prize under them: three matching logos win the jackpot.',
+    },
+    forever: {
+      first: 'FOR',
+      middle: '∞',
+      second: 'EVER',
+      jackpot: '3 matching logos: the jackpot',
+      pairRule: 'Two equal prizes win that prize',
+      rules: 'Game 1: a winning number among your numbers wins the prize under it; logos have no prize under them, but three matching logos win the jackpot. Game 2: two equal prizes win that prize.',
+    },
+    names: {
+      double: 'Double Luck',
+      forever: 'Forever',
+    },
+    dayRules: 'Ticket of the day: winning tickets come out {n} times as often.',
+  },
+  detail: {
+    scratch: {
+      small: 'three matching logos',
+      big: 'three matching logos',
+      jackpot: 'three matching logos',
+      match: 'winning number',
+      three: 'three equal prizes',
+      pair: 'two equal prizes',
+      logos: 'three matching logos',
+    },
+  },
+};

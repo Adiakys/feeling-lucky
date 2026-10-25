@@ -1,0 +1,55 @@
+export default {
+  games: {
+    scratch: {
+      name: 'Grattage',
+      summary: 'Trois logos identiques',
+      rules: "Trois logos identiques gagnent ce lot ; la bande du bas indique ce qu'il rapporte, jusqu'au jackpot.",
+    },
+  },
+  scratch: {
+    title: 'Grattez votre lot',
+    rule: "Trois logos identiques gagnent le lot. La bande du bas indique ce qu'il rapporte.",
+    award: 'gagné',
+    series: "J'AI DE LA CHANCE · SÉRIE FORTUNE",
+    watermark: 'CHANCE',
+    revealAll: 'Tout gratter',
+    newTicket: 'Nouveau ticket',
+    hint: 'Grattez avec la souris ou le doigt',
+    locked: 'Se gratte avec trois logos identiques',
+    prize: 'LOT',
+    winningNumbers: 'NUMÉROS GAGNANTS',
+    yourNumbers: 'VOS NUMÉROS',
+    game: 'JEU {n}',
+    topPrize: 'LOT MAXIMUM : LE JACKPOT',
+    double: {
+      first: 'DOUBLE',
+      second: 'CHANCE',
+      tagline: '2 façons de jouer !',
+      rules: "Deux façons de gagner : un numéro gagnant parmi vos numéros gagne le lot qu'il cache ; trois lots identiques gagnent ce lot. Les logos ne cachent aucun lot : trois logos identiques gagnent le jackpot.",
+    },
+    forever: {
+      first: 'POUR',
+      middle: '∞',
+      second: 'TOUJOURS',
+      jackpot: '3 logos identiques : le jackpot',
+      pairRule: 'Deux lots identiques gagnent ce lot',
+      rules: "Jeu 1 : un numéro gagnant parmi vos numéros gagne le lot qu'il cache ; les logos ne cachent aucun lot, mais trois logos identiques gagnent le jackpot. Jeu 2 : deux lots identiques gagnent ce lot.",
+    },
+    names: {
+      double: 'Double Chance',
+      forever: 'Pour Toujours',
+    },
+    dayRules: 'Ticket du jour : les tickets gagnants sortent {n} fois plus souvent.',
+  },
+  detail: {
+    scratch: {
+      small: 'trois logos identiques',
+      big: 'trois logos identiques',
+      jackpot: 'trois logos identiques',
+      match: 'numéro gagnant',
+      three: 'trois lots identiques',
+      pair: 'deux lots identiques',
+      logos: 'trois logos identiques',
+    },
+  },
+};

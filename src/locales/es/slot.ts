@@ -1,0 +1,60 @@
+export default {
+  games: {
+    slot: {
+      name: 'Slot',
+      summary: 'Tres símbolos en la línea',
+      rules: 'Dos premios iguales en la línea: un premio pequeño. Tres premios o tres 7: un premio grande. Tres ∞: el jackpot.',
+    },
+  },
+  slot: {
+    sign: 'JACKPOT',
+    ready: 'Tira de la palanca',
+    spinning: 'Giran los rodillos…',
+    line: 'En la línea',
+    spin: 'Gira los rodillos',
+    lever: 'Tira de la palanca',
+    result: {
+      none: 'Sin combinación',
+      small: 'Pareja en la línea',
+      big: 'Trío en la línea',
+      jackpot: 'Tres ∞',
+    },
+    names: {
+      takeoff: 'Despegue',
+      breakaway: 'Contraataque',
+    },
+    takeoff: {
+      rules: 'Vuelo del día: los premios salen {n} veces más a menudo. El avión despega y el multiplicador sube: cobra antes de que se escape. Desde ×2 ganas un premio pequeño, desde ×10 un premio grande y a ×50 el jackpot: cuanto más esperas, mayor es el premio.',
+      start: 'Despega',
+      again: 'Nuevo vuelo',
+      cashOut: 'Cobra {prize}',
+      cashFrom: 'Se cobra desde ×{m}',
+      ready: 'Listo para despegar',
+      gone: '¡Se ha escapado!',
+      cashed: 'Cobrado a ×{m}: {prize}',
+      hint: 'Cobra cuando quieras: si el avión se escapa antes, no ganas nada',
+    },
+    breakaway: {
+      rules: 'Partido del día: los premios salen {n} veces más a menudo. Avanza hacia la portería eligiendo una casilla en cada columna: en una está el defensa. Cada columna superada sube el premio y puedes cobrar cuando quieras; delante de la portería, chuta: con el gol ganas lo acumulado, hasta el jackpot.',
+      pick: 'Elige una casilla de la columna {n}',
+      shoot: 'Elige dónde chutar',
+      tackled: '¡Entrada! Pierdes el premio acumulado',
+      goal: '¡GOL!',
+      again: 'Nuevo partido',
+      cashOut: 'Cobra {prize}',
+      cashFrom: 'Se cobra desde la columna {n}',
+      square: 'Columna {column}, casilla {row}',
+      zone: 'Chuta a la zona {n}',
+    },
+  },
+  detail: {
+    slot: {
+      small: 'pareja en la línea',
+      big: 'trío en la línea',
+      jackpot: 'tres ∞',
+      takeoff: 'cobrado a ×{m}',
+      breakaway: '{n} columnas superadas',
+      goal: 'gol',
+    },
+  },
+};

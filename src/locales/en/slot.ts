@@ -1,0 +1,60 @@
+export default {
+  games: {
+    slot: {
+      name: 'Slot',
+      summary: 'Three symbols on the line',
+      rules: 'Two matching prizes on the line: a small prize. Three prizes or three 7s: a big prize. Three ∞: the jackpot.',
+    },
+  },
+  slot: {
+    sign: 'JACKPOT',
+    ready: 'Pull the lever',
+    spinning: 'Reels spinning…',
+    line: 'On the line',
+    spin: 'Spin the reels',
+    lever: 'Pull the lever',
+    result: {
+      none: 'No combination',
+      small: 'Pair on the line',
+      big: 'Three of a kind',
+      jackpot: 'Three ∞',
+    },
+    names: {
+      takeoff: 'Takeoff',
+      breakaway: 'Breakaway',
+    },
+    takeoff: {
+      rules: 'Flight of the day: wins come out {n} times as often. The plane takes off and the multiplier climbs: cash out before it flies away. From ×2 you win a small prize, from ×10 a big prize, at ×50 the jackpot: the longer you wait, the bigger the prize.',
+      start: 'Take off',
+      again: 'New flight',
+      cashOut: 'Cash out {prize}',
+      cashFrom: 'Cash out from ×{m}',
+      ready: 'Ready for takeoff',
+      gone: 'Flew away!',
+      cashed: 'Cashed out at ×{m}: {prize}',
+      hint: 'Cash out whenever you like: if the plane flies away first, you win nothing',
+    },
+    breakaway: {
+      rules: 'Match of the day: wins come out {n} times as often. Move toward the goal choosing a square in each column: one hides the defender. Each column cleared raises the prize and you can cash out whenever you like; in front of the goal, shoot: the goal wins what you collected, up to the jackpot.',
+      pick: 'Choose a square in column {n}',
+      shoot: 'Choose where to shoot',
+      tackled: 'Tackled! The prize collected is lost',
+      goal: 'GOAL!',
+      again: 'New match',
+      cashOut: 'Cash out {prize}',
+      cashFrom: 'Cash out from column {n}',
+      square: 'Column {column}, square {row}',
+      zone: 'Shoot at zone {n}',
+    },
+  },
+  detail: {
+    slot: {
+      small: 'pair on the line',
+      big: 'three of a kind',
+      jackpot: 'three ∞',
+      takeoff: 'cashed out at ×{m}',
+      breakaway: '{n} columns cleared',
+      goal: 'goal',
+    },
+  },
+};

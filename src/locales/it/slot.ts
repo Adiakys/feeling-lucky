@@ -1,0 +1,60 @@
+export default {
+  games: {
+    slot: {
+      name: 'Slot',
+      summary: 'Tre simboli in linea',
+      rules: 'Due premi uguali sulla linea: un premio piccolo. Tre premi o tre 7: un premio grande. Tre ∞: il jackpot.',
+    },
+  },
+  slot: {
+    sign: 'JACKPOT',
+    ready: 'Tira la leva',
+    spinning: 'I rulli girano…',
+    line: 'Sulla linea',
+    spin: 'Gira i rulli',
+    lever: 'Tira la leva',
+    result: {
+      none: 'Nessuna combinazione',
+      small: 'Coppia sulla linea',
+      big: 'Tris sulla linea',
+      jackpot: 'Tre ∞',
+    },
+    names: {
+      takeoff: 'Decollo',
+      breakaway: 'Contropiede',
+    },
+    takeoff: {
+      rules: "Volo del giorno: le vincite escono {n} volte più spesso. L'aereo decolla e il moltiplicatore sale: incassa prima che voli via. Da ×2 vinci un premio piccolo, da ×10 un premio grande, a ×50 il jackpot: più aspetti, più il premio è grande.",
+      start: 'Decolla',
+      again: 'Nuovo volo',
+      cashOut: 'Incassa {prize}',
+      cashFrom: 'Si incassa da ×{m}',
+      ready: 'Pronto al decollo',
+      gone: 'Volato via!',
+      cashed: 'Incassato a ×{m}: {prize}',
+      hint: "Incassa quando vuoi: se l'aereo vola via prima, non vinci nulla",
+    },
+    breakaway: {
+      rules: "Partita del giorno: le vincite escono {n} volte più spesso. Avanza verso la porta scegliendo una casella per colonna: in una c'è il difensore. Ogni colonna superata alza il premio e puoi incassare quando vuoi; davanti alla porta tira: con il gol vinci quello che hai raccolto, fino al jackpot.",
+      pick: 'Scegli una casella della colonna {n}',
+      shoot: 'Scegli dove tirare',
+      tackled: 'Placcato! Il premio raccolto è perso',
+      goal: 'GOL!',
+      again: 'Nuova partita',
+      cashOut: 'Incassa {prize}',
+      cashFrom: 'Si incassa dalla colonna {n}',
+      square: 'Colonna {column}, casella {row}',
+      zone: 'Tira nella zona {n}',
+    },
+  },
+  detail: {
+    slot: {
+      small: 'coppia sulla linea',
+      big: 'tris sulla linea',
+      jackpot: 'tre ∞',
+      takeoff: 'incassato a ×{m}',
+      breakaway: '{n} colonne superate',
+      goal: 'gol',
+    },
+  },
+};

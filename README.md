@@ -12,6 +12,15 @@ A casino room for any web app: players try their luck on classic casino games an
 npm install feeling-lucky
 ```
 
+Without a bundler, the IIFE build exposes a global:
+
+```html
+<script src="https://unpkg.com/feeling-lucky"></script>
+<script>
+  const lucky = FeelingLucky.createFeelingLucky({ prizes: [/* … */] });
+</script>
+```
+
 ## Usage
 
 ```ts
@@ -52,10 +61,11 @@ Every field takes a value, a function, or a function returning a Promise.
 | `prizes` | `Prize[]`, 1 to n | required |
 | `locale` | language code, e.g. `'it'` or `'pt-BR'` | follows the host page, see [Languages](#languages) |
 | `messages` | `{ [locale]: Messages }`: new languages, or overrides of the built-in ones | none |
+| `logo` | image URL of your brand mark, on the certificate, the wheel's hub and the scratch card | a clover |
 | `player` | `{ name, avatar? }`, shown at the card tables | anonymous seat |
 | `onWin` | `(win: Win) => void` | none |
 | `onClaim` | `(win: Win) => Promise<void>`; shows **Claim** on the certificate | no claim button |
-| `developer` | `{ passwordHash }`, enables the developer menu (Ctrl+Shift+L) | disabled |
+| `developer` | `true` or `{ passwordHash? }`: enables the developer menu (Ctrl+Shift+L), behind a password when the hash is given | disabled |
 
 ```ts
 interface Prize {
@@ -90,6 +100,14 @@ interface Win {
 - **Board labels:** game boards (wheel segments, pachinko pockets, cash-out steps, scratch tickets) show the variants' `short` labels.
 - **Tier symbol fallback:** a prize without variants, or with a variants function, shows the tier symbol on the board instead. Its variant is revealed on the certificate.
 - **No signing or issuing.** `onClaim` hands the win to the host.
+
+### Developer menu
+
+Ctrl+Shift+L in the room opens a password-gated panel that forces outcomes, themes and bonuses, for demos and testing. Without `passwordHash` it opens without a password. With it, only the password's SHA-256 hex goes in the config; checking it needs a secure context (https or localhost):
+
+```bash
+printf '%s' 'my password' | sha256sum
+```
 
 ## Languages
 
@@ -162,3 +180,7 @@ npm run test:e2e   # one smoke test per game
 npm run typecheck
 npm run build      # dist/: ESM + IIFE
 ```
+
+## License
+
+[GPL-3.0-or-later](LICENSE)
