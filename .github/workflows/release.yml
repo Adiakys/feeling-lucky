@@ -1,4 +1,4 @@
-# Publishing a GitHub release, or pre-release, from a v<version> tag publishes the package to npm and attaches
+# Publishing a GitHub release, or pre-release, on a v<version> tag publishes the package to npm and attaches
 # it to the release; a release also deploys the playground as the demo on GitHub Pages. A pre-release goes to
 # npm under the `next` dist-tag, so `npm install` keeps getting the latest release.
 name: Release
@@ -22,8 +22,9 @@ jobs:
       # npm 11.5+ publishes through npm's Trusted Publishing (OIDC) once it is set up on npmjs.com; until then, with NPM_TOKEN.
       - run: npm install -g npm@latest
       - run: npm ci
-      - name: Tag matches package.json
-        run: test "$GITHUB_REF_NAME" = "v$(node -p "require('./package.json').version")"
+      # The version is the release's tag, v1.2.3 or v1.2.3-beta.1: package.json's is only a placeholder.
+      - name: Version from the release tag
+        run: npm version "${GITHUB_REF_NAME#v}" --no-git-tag-version --allow-same-version
       - run: npx tsc --noEmit
       - run: npx vitest run
       - run: npm publish --tag ${{ github.event.release.prerelease && 'next' || 'latest' }}
