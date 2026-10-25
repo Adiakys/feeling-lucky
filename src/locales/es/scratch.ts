@@ -1,7 +1,7 @@
 export default {
   games: {
     scratch: {
-      name: 'Rasca y gana',
+      name: 'Raspadita',
       summary: 'Tres logos iguales',
       rules: 'Tres logos iguales ganan ese premio; la franja de abajo dice cuánto paga, hasta el jackpot.',
     },

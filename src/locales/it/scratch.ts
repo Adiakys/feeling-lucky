@@ -1,7 +1,7 @@
 export default {
   games: {
     scratch: {
-      name: 'Gratta e vinci',
+      name: 'Biglietto Fortunato',
       summary: 'Tre loghi uguali',
       rules: 'Tre loghi uguali vincono quel premio; la striscia in basso dice cosa paga, fino al jackpot.',
     },
