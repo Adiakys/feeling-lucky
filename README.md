@@ -11,13 +11,13 @@ A casino room for any web app: players try their luck on classic casino games an
 ## Install
 
 ```bash
-npm install feeling-lucky
+npm install @adiakys/feeling-lucky
 ```
 
 Without a bundler, the IIFE build exposes a global:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/feeling-lucky/dist/feeling-lucky.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@adiakys/feeling-lucky/dist/feeling-lucky.iife.js"></script>
 <script>
   const lucky = FeelingLucky.createFeelingLucky({ prizes: [/* … */] });
 </script>
@@ -26,7 +26,7 @@ Without a bundler, the IIFE build exposes a global:
 ## Usage
 
 ```ts
-import { createFeelingLucky } from 'feeling-lucky';
+import { createFeelingLucky } from '@adiakys/feeling-lucky';
 
 const lucky = createFeelingLucky({
   prizes: [
@@ -135,7 +135,7 @@ Every text, game names included, comes from the locale. Built in: `en`, `it`, `e
 - **New languages:** add them through `messages`. Missing keys fall back to `en`.
 
 ```ts
-import { createFeelingLucky, en } from 'feeling-lucky';
+import { createFeelingLucky, en } from '@adiakys/feeling-lucky';
 
 createFeelingLucky({
   prizes,

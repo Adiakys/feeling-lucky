@@ -18,6 +18,8 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
+      # npm 11.5+ publishes through npm's Trusted Publishing (OIDC) once it is set up on npmjs.com; until then, with NPM_TOKEN.
+      - run: npm install -g npm@latest
       - run: npm ci
       - name: Tag matches package.json
         run: test "$GITHUB_REF_NAME" = "v$(node -p "require('./package.json').version")"
@@ -27,7 +29,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm pack
-      - run: gh release create "$GITHUB_REF_NAME" feeling-lucky-*.tgz --title "$GITHUB_REF_NAME" --generate-notes
+      - run: gh release create "$GITHUB_REF_NAME" adiakys-feeling-lucky-*.tgz --title "$GITHUB_REF_NAME" --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}
       - run: npm run build:demo
