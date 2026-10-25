@@ -114,6 +114,7 @@ export const developerRig: Rig = {
   },
   'scratch.ticket': (_, draw) => (settingsOf('scratch').variant as DayTicket | undefined) ?? draw(),
   locale: (_, draw) => room.locale ?? draw(),
+  dealer: ({ count }, draw) => (room.dealer === undefined ? draw() : room.dealer === 'none' ? null : room.dealer < count ? room.dealer : draw()),
   theme: (_, draw) => (room.theme === undefined ? draw() : room.theme === 'none' ? null : room.theme),
   'slot.machine': (_, draw) => (settingsOf('slot').variant as DayMachine | undefined) ?? draw(),
   // A forced win lets the run go all the way: the player chooses where to cash out.

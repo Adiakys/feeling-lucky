@@ -12,7 +12,7 @@ const backdrop = guilloche(450, 400, 1.25);
 // The felt table every game stands on, with its bulb frame and the game's rules behind a round button.
 export function stage(
   t: Translate,
-  { state, rules, multiplier }: { state: 'idle' | 'spinning' | 'won'; rules: string; multiplier?: number },
+  { state, rules, multiplier, dealer }: { state: 'idle' | 'spinning' | 'won'; rules: string; multiplier?: number; dealer?: boolean },
   game: TemplateResult,
   overlay?: TemplateResult,
 ) {
@@ -23,7 +23,7 @@ export function stage(
           ${backdrop.map((points) => svg`<polyline points=${points} fill="none" stroke="#d4a94e" stroke-opacity="0.12" stroke-width="0.5" />`)}
         </svg>
         <i class="lk-bulbs" aria-hidden="true"></i>
-        ${multiplier && multiplier > 1 ? boost(t, multiplier) : nothing}
+        ${multiplier && multiplier > 1 ? boost(t, multiplier, dealer) : nothing}
         <fl-rules .text=${rules}></fl-rules>
         <div class="lk-game">${game}</div>
         ${overlay ?? nothing}

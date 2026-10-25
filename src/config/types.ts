@@ -27,6 +27,15 @@ export interface Win<V extends Variant = Variant> {
   game: GameId;
 }
 
+// A dealer at the Salon Privé's tables: a waist-up portrait on a transparent background, standing behind the table,
+// forearms resting forward at the bottom. hands: a CSS clip-path of the forearms and hands, drawn over the table's rim.
+// Without dealers in the config the library's own takes the shifts; an empty list leaves the tables without one.
+export interface Dealer {
+  image: string;
+  name?: string;
+  hands?: string;
+}
+
 export interface Player {
   name: string;
   avatar?: string;
@@ -40,6 +49,7 @@ export interface FeelingLuckyConfig<V extends Variant = Variant> {
   messages?: Resolvable<Record<string, Messages>>;
   player?: Resolvable<Player>;
   logo?: Resolvable<string>;
+  dealers?: Resolvable<Dealer[]>;
   onWin?: (win: Win<V>) => void;
   onClaim?: (win: Win<V>) => Promise<void>;
   developer?: Resolvable<boolean | { passwordHash?: string }>;

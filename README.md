@@ -64,6 +64,7 @@ Every field takes a value, a function, or a function returning a Promise.
 | `locale` | language code, e.g. `'it'` or `'pt-BR'` | follows the host page, see [Languages](#languages) |
 | `messages` | `{ [locale]: Messages }`: new languages, or overrides of the built-in ones | none |
 | `logo` | image URL of your brand mark, on the certificate, the wheel's hub and the scratch card | a clover |
+| `dealers` | `Dealer[]`: the dealers who take the Salon Privé's shifts, see [Dealers](#dealers) | the library's own dealer |
 | `player` | `{ name, avatar? }`, shown at the card tables | anonymous seat |
 | `onWin` | `(win: Win) => void` | none |
 | `onClaim` | `(win: Win) => Promise<void>`; shows **Claim** on the certificate | no claim button |
@@ -159,7 +160,22 @@ createFeelingLucky({
   - Takeoff or Breakaway in place of the slot
   - Double Luck or Forever in place of the scratch card
   - colour Pachinko
+- **Dealers:** three shifts a day, the same for everyone, from the date's hash, see [Dealers](#dealers).
 - **Room themes:** Christmas, Halloween, Easter and August, taken from the calendar.
+
+## Dealers
+
+A dealer stands at the Salon Privé's tables during three shifts a day of 30 to 90 minutes between 10:00 and 23:00, local time. The shifts come from the date's hash, and the dealers in the list take them in turn. While a dealer is on shift, Blackjack and Texas Hold'em win twice as often. A dealer arriving or leaving mid-game walks in or out of the table, and the odds change from the next hand.
+
+```ts
+interface Dealer {
+  image: string;    // waist-up portrait, transparent background, forearms resting forward at the bottom
+  name?: string;
+  hands?: string;   // CSS clip-path of the forearms and hands, drawn over the table's rim
+}
+```
+
+Without `dealers`, the library's own illustrated dealer takes every shift; `dealers: []` leaves the tables without one.
 
 ## Structure
 

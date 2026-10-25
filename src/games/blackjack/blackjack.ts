@@ -4,6 +4,7 @@ import { ChevronsUp, CopyPlus, Hand as HandIcon, Layers, Repeat, Split, Trash2, 
 import type { Tier } from '../../config/types';
 import { drawAward } from '../../engine/awards';
 import { blackjackDeal, blackjackDealer, blackjackHit, canSplit, handTotal, isNatural, type Card } from '../../engine/cards';
+import { onDuty } from '../../engine/dealer';
 import { gameBoost, gamePrize, gameTier } from '../../engine/tiers';
 import '../../room/chips';
 import { stage } from '../../room/stage';
@@ -48,8 +49,15 @@ export class Blackjack extends LuckyElement {
   private tier: Tier = 'none';
   private pace = reducedMotion() ? 0 : 480;
 
+  constructor() {
+    super();
+    this.watch(onDuty);
+  }
+
+  // A dealer coming or leaving changes the odds from the next hand, never during one.
   protected willUpdate() {
     if (!this.room.prizeIds.includes(this.chosen)) this.chosen = this.room.prizeIds[0]!;
+    if (this.phase === 'ready') this.boost = gameBoost('blackjack');
   }
 
   private get betting() {
@@ -265,10 +273,10 @@ export class Blackjack extends LuckyElement {
     )}`;
     return stage(
       room.t,
-      { state, rules: this.t('games.blackjack.rules'), multiplier: this.boost },
+      { state, rules: this.t('games.blackjack.rules'), multiplier: this.boost, dealer: true },
       html`
         <div class="lk-cards lk-cards--blackjack ${this.clearing ? 'is-clearing' : ''}">
-          ${cardTable(room, this.t('blackjack.print'), { dealer, centre, bet, player })}
+          ${cardTable(room, this.t('blackjack.print'), { dealer, centre, bet, player }, { on: onDuty.value, dealing: phase === 'dealing' || phase === 'dealer' })}
           <div class="lk-rl-rack lk-cards-rack">
             <fl-chips
               .chosen=${this.chosen}

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 735">
+  <defs>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1c6a8"/><stop offset="1" stop-color="#e0a888"/></linearGradient>
+    <linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf7f0"/><stop offset="1" stop-color="#e6ddd0"/></linearGradient>
+    <linearGradient id="vest" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7e1a26"/><stop offset="1" stop-color="#4c0d16"/></linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a2f1f"/><stop offset="1" stop-color="#2e1710"/></linearGradient>
+  </defs>
+  <!-- bun behind the head -->
+  <ellipse cx="450" cy="58" rx="62" ry="50" fill="url(#hair)"/>
+  <!-- shoulders and sleeves -->
+  <path d="M248 350 Q300 318 372 308 L528 308 Q600 318 652 350 Q706 388 716 480 L790 640 Q735 668 690 640 L640 700 L260 700 L210 640 Q165 668 110 640 L184 480 Q194 388 248 350Z" fill="url(#shirt)"/>
+  <path d="M262 600 Q246 470 292 380 M638 600 Q654 470 608 380" fill="none" stroke="#d9cdbd" stroke-width="5"/>
+  <!-- vest -->
+  <path d="M300 340 L405 330 L450 520 L495 330 L600 340 Q640 420 634 600 L640 700 L260 700 L266 600 Q260 420 300 340Z" fill="url(#vest)"/>
+  <path d="M405 330 L450 520 L495 330" fill="none" stroke="#d4a94e" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M300 340 Q262 420 266 600 M600 340 Q638 420 634 600" fill="none" stroke="#d4a94e" stroke-width="4" opacity=".7"/>
+  <circle cx="450" cy="545" r="7" fill="#e2bd63"/><circle cx="450" cy="580" r="7" fill="#e2bd63"/>
+  <!-- shirt front and collar -->
+  <path d="M405 330 L450 520 L495 330 Z" fill="url(#shirt)"/>
+  <path d="M392 300 L450 340 L508 300 L520 330 L450 370 L380 330 Z" fill="#fffdf8" stroke="#d9cdbd" stroke-width="3"/>
+  <!-- neck -->
+  <path d="M410 250 L410 312 Q450 336 490 312 L490 250 Z" fill="url(#skin)"/>
+  <path d="M410 296 Q450 318 490 296" fill="none" stroke="#c98d70" stroke-width="3" opacity=".6"/>
+  <!-- bow tie -->
+  <path d="M450 330 L404 306 L404 354 Z M450 330 L496 306 L496 354 Z" fill="#17120e"/>
+  <rect x="438" y="318" width="24" height="24" rx="6" fill="#2a211b"/>
+  <!-- head -->
+  <ellipse cx="450" cy="172" rx="92" ry="112" fill="url(#skin)"/>
+  <ellipse cx="358" cy="182" rx="14" ry="24" fill="#e7b293"/><ellipse cx="542" cy="182" rx="14" ry="24" fill="#e7b293"/>
+  <circle cx="356" cy="214" r="6" fill="#e2bd63"/><circle cx="544" cy="214" r="6" fill="#e2bd63"/>
+  <!-- hair, swept back with a side part -->
+  <path d="M352 196 Q340 70 450 56 Q562 62 548 196 Q540 120 504 100 Q452 136 378 122 Q360 150 352 196Z" fill="url(#hair)"/>
+  <path d="M420 66 Q470 64 520 96" fill="none" stroke="#7a4a33" stroke-width="5" stroke-linecap="round"/>
+  <!-- face -->
+  <path d="M392 158 Q410 148 428 156 M472 156 Q490 148 508 158" fill="none" stroke="#3a2016" stroke-width="6" stroke-linecap="round"/>
+  <path d="M396 184 Q410 174 426 184 Q410 192 396 184Z M474 184 Q490 174 504 184 Q490 192 474 184Z" fill="#2a1a12"/>
+  <circle cx="413" cy="182" r="3" fill="#fff" opacity=".8"/><circle cx="491" cy="182" r="3" fill="#fff" opacity=".8"/>
+  <path d="M450 192 Q444 222 452 232" fill="none" stroke="#c98d70" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="402" cy="218" rx="20" ry="11" fill="#e88f80" opacity=".28"/><ellipse cx="498" cy="218" rx="20" ry="11" fill="#e88f80" opacity=".28"/>
+  <path d="M424 250 Q450 262 476 250 Q450 272 424 250Z" fill="#b4434a"/>
+  <!-- forearms resting on the rim, hands joined in front -->
+  <path d="M110 640 Q160 610 210 640 L420 676 Q440 704 420 722 L150 712 Q96 700 110 640Z" fill="url(#shirt)"/>
+  <path d="M790 640 Q740 610 690 640 L480 676 Q460 704 480 722 L750 712 Q804 700 790 640Z" fill="url(#shirt)"/>
+  <path d="M396 668 L420 676 L420 722 L396 718 Z M504 668 L480 676 L480 722 L504 718 Z" fill="#fffdf8" stroke="#d9cdbd" stroke-width="3"/>
+  <circle cx="406" cy="694" r="5" fill="#e2bd63"/><circle cx="494" cy="694" r="5" fill="#e2bd63"/>
+  <path d="M418 674 Q452 652 486 674 Q500 700 482 720 Q450 734 418 720 Q400 700 418 674Z" fill="url(#skin)"/>
+  <path d="M432 680 Q450 668 468 680 M428 694 Q450 684 472 694 M430 708 Q450 700 470 708" fill="none" stroke="#c98d70" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+</svg>

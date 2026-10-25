@@ -175,6 +175,13 @@ export class Developer extends LuckyElement {
     rigChanged.value++;
   }
 
+  // The dealer at the Salon Privé's tables, over the day's shifts, comes or leaves at once.
+  private setDealer(value: string) {
+    room.dealer = value === '' ? undefined : value === 'none' ? 'none' : Number(value);
+    rigChanged.value++;
+    this.requestUpdate();
+  }
+
   // The theme is no game's: it applies at once, so the room renders again.
   private setTheme(value: string) {
     room.theme = (value || undefined) as Theme | 'none' | undefined;
@@ -322,6 +329,20 @@ export class Developer extends LuckyElement {
           )}
         </select>
       </label>
+      ${this.room.dealers.length
+        ? html`<label class="lk-dev-row">${this.t('developer.dealer')}
+            <select @change=${(event: Event) => this.setDealer(value(event))}>
+              ${this.choices(
+                [
+                  { value: 'none', label: this.t('developer.dealerAbsent') },
+                  ...this.room.dealers.map((dealer, index) => ({ value: String(index), label: dealer.name ?? this.t('developer.dealerNumber', { n: index + 1 }) })),
+                ],
+                room.dealer === undefined ? undefined : String(room.dealer),
+                this.t('developer.dealerShifts'),
+              )}
+            </select>
+          </label>`
+        : nothing}
       <label class="lk-dev-row">${this.t('developer.game')}
         <select @change=${this.selectGame}>
           ${GAME_IDS.map((game) => html`<option value=${game} ?selected=${game === selected}>${this.t(`games.${game}.name`)}</option>`)}

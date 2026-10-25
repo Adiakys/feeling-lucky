@@ -1,4 +1,5 @@
 import type { GameId, Tier } from '../config/types';
+import { DEALER_BOOST, onDuty } from './dealer';
 import { pick } from './random';
 import { decide } from './rig';
 
@@ -50,7 +51,9 @@ export const luckBoost = (game: GameId, date = new Date()) => {
   return bonus.game === game ? bonus.multiplier : 1;
 };
 
-export const gameBoost = (game: GameId) => decide('boost', { game }, () => luckBoost(game));
+// The Salon Privé's games have no bonus of the day: theirs comes with the dealer.
+export const gameBoost = (game: GameId) =>
+  decide('boost', { game }, () => (PRIVATE_GAMES.includes(game) ? (onDuty.value === null ? 1 : DEALER_BOOST) : luckBoost(game)));
 export const gameTier = (game: GameId, boost: number) => decide('tier', { game, boost }, () => drawTier(boost));
 // The prize a play is for, among the ones that can pay it.
 export const gamePrize = (game: GameId, prizeIds: string[]) => decide('prize', { game, prizeIds }, () => pick(prizeIds));

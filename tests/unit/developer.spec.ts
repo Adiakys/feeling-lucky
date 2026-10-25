@@ -31,6 +31,7 @@ const never = () => {
 afterEach(() => {
   for (const game of GAME_IDS) delete settings[game];
   delete room.theme;
+  delete room.dealer;
   room.prizes = [];
   installRig({});
   vi.restoreAllMocks();
@@ -221,5 +222,17 @@ describe('the room theme', () => {
     expect(settle('theme', {}, never)).toBe('christmas');
     room.theme = 'none';
     expect(settle('theme', {}, never)).toBeNull();
+  });
+});
+
+describe('the dealer', () => {
+  it('follows the day’s shifts until called or sent away', () => {
+    expect(settle('dealer', { count: 2 }, () => null)).toBeNull();
+    room.dealer = 1;
+    expect(settle('dealer', { count: 2 }, never)).toBe(1);
+    room.dealer = 'none';
+    expect(settle('dealer', { count: 2 }, never)).toBeNull();
+    room.dealer = 5;
+    expect(settle('dealer', { count: 2 }, () => 0)).toBe(0);
   });
 });

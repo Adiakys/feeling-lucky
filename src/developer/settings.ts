@@ -31,7 +31,7 @@ export const DECISIVE: Field[] = ['segment', 'combination', 'number', 'pocket', 
 export const settings: Partial<Record<GameId, GameSettings>> = {};
 // The room's theme, from the calendar unless set; it applies at once, to the whole room. The prizes are
 // the room's, for the prize that pays a chosen award.
-export const room: { theme?: Theme | 'none'; locale?: string; prizes: Prize[] } = { prizes: [] };
+export const room: { theme?: Theme | 'none'; locale?: string; dealer?: number | 'none'; prizes: Prize[] } = { prizes: [] };
 
 export const blankSettings = (): GameSettings => ({ multiplier: undefined, variant: undefined, result: 'automatic', advanced: {} });
 export const VARIANTS: Partial<Record<GameId, readonly string[]>> = { slot: DAY_MACHINES, scratch: DAY_TICKETS };

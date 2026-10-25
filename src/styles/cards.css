@@ -2,7 +2,12 @@
 
 .lk-cards { display: flex; flex-direction: column; align-items: center; width: min(920px, calc(100cqw - 24px), calc((100cqh - 110px) * 1.8)); }
 .lk-ctable { width: 100%; padding: 0 30px 50px; container-type: inline-size; --lk-card-w: 7cqw; }
-.lk-ctable-felt { position: relative; aspect-ratio: 9 / 5; border-radius: 0 0 50% 50% / 0 0 100% 100%; background: radial-gradient(60% 70% at 50% 28%, rgb(255 225 170 / 0.12), transparent 70%), radial-gradient(120% 100% at 50% 0%, #1d4636, #0a1d16 75%); box-shadow: 0 0 0 2px #c9a04a, 0 0 0 16px #2a120c, 0 0 0 17px #8a6420, 0 30px 60px -10px rgb(0 0 0 / 0.8), inset 0 0 70px rgb(0 0 0 / 0.55); }
+.lk-ctable-felt { position: relative; z-index: 1; aspect-ratio: 9 / 5; border-radius: 0 0 50% 50% / 0 0 100% 100%; box-shadow: 0 46px 60px -10px rgb(0 0 0 / 0.8); }
+.lk-ctable-rail, .lk-ctable-cloth { position: absolute; border-radius: 0 0 50% 50% / 0 0 100% 100%; pointer-events: none; }
+.lk-ctable-rail { inset: -17px; background: #2a120c; box-shadow: inset 0 0 0 1px #8a6420; }
+.lk-ctable-cloth { inset: 0; background: radial-gradient(60% 70% at 50% 28%, rgb(255 225 170 / 0.12), transparent 70%), radial-gradient(120% 100% at 50% 0%, #1d4636, #0a1d16 75%); box-shadow: 0 0 0 2px #c9a04a, inset 0 0 70px rgb(0 0 0 / 0.55); }
+.lk-ctable-rail { mask: radial-gradient(calc(100% * var(--lk-notch-x)) calc(100% * var(--lk-notch-y)) at 50% 17px, transparent 99%, #000 100%); }
+.lk-ctable-cloth { mask: radial-gradient(calc(100% * var(--lk-notch-x)) calc(100% * var(--lk-notch-y)) at 50% 0, transparent 99%, #000 100%); }
 .lk-ctable-print { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .lk-ctable-print text { font: 600 15px var(--lk-display-font); letter-spacing: 0.22em; text-transform: uppercase; fill: rgb(243 212 136 / 0.42); }
 .lk-ctable-shoe { position: absolute; top: 5%; right: 9%; width: calc(var(--lk-card-w) * 1.05); aspect-ratio: 5 / 7; }
@@ -69,3 +74,37 @@
 @media (prefers-reduced-motion: reduce) {
   .lk-page, .lk-veil, .lk-card, .lk-card-turn, .lk-mini-hand .lk-card + .lk-card { transition: none; animation: none; }
 }
+
+
+/* Dealers at the tables */
+/* The dealer stands behind the table in a notch cut into the straight edge, her arms on its rim. Showing her opens the
+   notch, makes room above the table, shrinking it only when the height runs short, and sends the controls to the edges. */
+.lk-cards { transition: width 0.7s var(--lk-ease-out); }
+.lk-cards:has(.has-dealer) { width: min(920px, calc(100cqw - 24px), calc((100cqh - 60px) * 1.32)); }
+.lk-cards-rack { transition: width 0.7s var(--lk-ease-out), margin-top 0.7s var(--lk-ease-out); }
+.lk-cards:has(.has-dealer) .lk-cards-rack { width: calc(100cqw - 56px); margin-top: -58px; }
+/* The notch's radii are fractions of the felt: container units do not resolve inside a mask's gradient. */
+.lk-ctable { --lk-notch-x: 0; --lk-notch-y: 0; transition: --lk-notch-x 0.7s var(--lk-ease-out), --lk-notch-y 0.7s var(--lk-ease-out); }
+.lk-ctable.has-dealer { --lk-card-w: 5.6cqw; --lk-notch-x: 0.18; --lk-notch-y: 0.13; }
+/* Percentages only: a gradient's size cannot mix them with lengths. The rail's notch comes out a few pixels wider
+   than the felt's, and the rim covers the difference. */
+.lk-ctable-notch { position: absolute; top: 0; left: 50%; width: calc(200% * var(--lk-notch-x) + 34px); height: calc(200% * var(--lk-notch-y) + 34px); translate: -50% -50%; border: 16px solid #2a120c; border-radius: 50%; box-shadow: 0 0 0 2px #c9a04a, inset 0 0 0 1px #8a6420; clip-path: inset(calc(50% - 17px) -4px -4px -4px); opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.lk-ctable.has-dealer .lk-ctable-notch { opacity: 1; }
+.lk-dealer { position: relative; height: 0; pointer-events: none; transition: height 0.7s var(--lk-ease-out); }
+.lk-ctable.has-dealer .lk-dealer { height: 16cqw; }
+.lk-dealer-photo { position: absolute; top: 0; left: 50%; z-index: 0; width: 30cqw; opacity: 0; translate: -50% 18%; transform-origin: 50% 100%; filter: drop-shadow(0 10px 16px rgb(0 0 0 / 0.5)); animation: lk-dealer-breath 4.2s ease-in-out infinite alternate; transition: opacity 0.6s ease, translate 0.7s var(--lk-ease-out); }
+.lk-dealer-photo.is-shown { opacity: 1; translate: -50% 0; transition-delay: 0.25s; }
+@starting-style { .lk-dealer-photo.is-shown { opacity: 0; translate: -50% 18%; } }
+/* Her forearms and hands, over the felt and its rim: they rise with her, and vanish as soon as she starts to leave so
+   they never slide down over the felt. */
+.lk-dealer-photo.is-hands { z-index: 2; filter: none; }
+.lk-dealer-photo.is-hands:not(.is-shown) { transition: none; }
+@keyframes lk-dealer-breath { to { transform: translateY(-1.5px) scale(1.006); } }
+.lk-dealer-photo.is-dealing { animation: lk-dealer-deal 0.48s ease-in-out infinite alternate; }
+@keyframes lk-dealer-deal { from { transform: rotate(0deg); } to { transform: rotate(0.8deg) translateY(2px); } }
+@media (prefers-reduced-motion: reduce) { .lk-dealer-photo, .lk-dealer-photo.is-dealing { animation: none; } }
+.lk-ctable-dealer, .lk-ctable-centre, .lk-ctable-player { transition: top 0.6s var(--lk-ease-out); }
+.lk-ctable.has-dealer .lk-ctable-dealer { top: 27%; }
+.lk-ctable.has-dealer .lk-ctable-centre { top: 47%; }
+.lk-cards--blackjack .lk-ctable.has-dealer .lk-ctable-player { top: 54%; }
+.lk-cards--holdem .lk-ctable.has-dealer .lk-ctable-player { top: 70%; }

@@ -22,7 +22,7 @@ export default {
     jackpot: 'Jackpot',
     symbol: { small: '★', big: '★★', jackpot: '★★★' },
   },
-  boost: { badge: '×{n}', title: 'Bonus del día', odds: 'Bonus del día: premios {n} veces más probables' },
+  boost: { badge: '×{n}', title: 'Bonus del día', odds: 'Bonus del día: premios {n} veces más probables', dealer: 'Crupier en la mesa', dealerOdds: 'Crupier en la mesa: premios {n} veces más probables' },
   themes: {
     christmas: { name: 'Navidad', greeting: 'Felices fiestas: hay un premio bajo el árbol' },
     halloween: { name: 'Halloween', greeting: '¿Truco o premio?' },

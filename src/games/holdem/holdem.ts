@@ -4,6 +4,7 @@ import { Eye, Layers, X } from 'lucide';
 import type { Tier } from '../../config/types';
 import { drawAward } from '../../engine/awards';
 import { combination, HAND_NAMES, holdemDeal, holdemResult, type Card } from '../../engine/cards';
+import { onDuty } from '../../engine/dealer';
 import { gameBoost, gamePrize, gameTier } from '../../engine/tiers';
 import { stage } from '../../room/stage';
 import type { GameOptions } from '../../runtime/context';
@@ -31,6 +32,16 @@ export class Holdem extends LuckyElement {
   @query('.lk-cards') private table?: HTMLElement;
 
   private boost = gameBoost('holdem');
+
+  constructor() {
+    super();
+    this.watch(onDuty);
+  }
+
+  // A dealer coming or leaving changes the odds from the next hand, never during one.
+  protected willUpdate() {
+    if (this.phase === 'ready') this.boost = gameBoost('holdem');
+  }
   private prizeId: string | null = null;
   private tier: Tier = 'none';
   private pace = reducedMotion() ? 0 : 480;
@@ -155,10 +166,10 @@ export class Holdem extends LuckyElement {
     `;
     return stage(
       room.t,
-      { state, rules: this.t('games.holdem.rules'), multiplier: this.boost },
+      { state, rules: this.t('games.holdem.rules'), multiplier: this.boost, dealer: true },
       html`
         <div class="lk-cards lk-cards--holdem ${this.clearing ? 'is-clearing' : ''}">
-          ${cardTable(room, this.t('holdem.print'), { dealer, centre, player })}
+          ${cardTable(room, this.t('holdem.print'), { dealer, centre, player }, { on: onDuty.value, dealing: phase === 'dealing' || phase === 'showdown' })}
           <div class="lk-controls lk-cards-controls">
             ${phase === 'decide'
               ? html`

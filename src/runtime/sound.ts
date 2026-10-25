@@ -1,6 +1,6 @@
 import { pick, random } from '../engine/random';
 
-export type SoundName = 'tick' | 'reel' | 'stop' | 'whoosh' | 'bounce' | 'chime' | 'win' | 'jackpot' | 'stamp' | 'scratch' | 'lever' | 'ambient' | 'thunder';
+export type SoundName = 'tick' | 'reel' | 'stop' | 'whoosh' | 'bounce' | 'chime' | 'win' | 'jackpot' | 'stamp' | 'scratch' | 'lever' | 'ambient' | 'thunder' | 'dealer';
 
 // Every sound is synthesized: no audio files to ship. Off until the player turns it on, which is
 // also the gesture the browser wants before it plays anything.
@@ -113,6 +113,11 @@ export const sound = {
         this.noise(now, 0.09, 0.9 * volume, 6000, 1200, 0.7);
         this.noise(now + 0.02, 0.35, 0.35 * volume, 2400, 300, 1.5);
         this.noise(now + 0.05, 1.6, 0.8 * volume, 180, 45, 0.9);
+        break;
+      // The dealer takes her place: a riffle of the deck and a soft bell.
+      case 'dealer':
+        for (let index = 0; index < 7; index++) this.noise(now + index * 0.035, 0.03, 0.12 * volume, 4200 - index * 180, 2600, 2.5);
+        arpeggio(659, [0, 7], 0.12, 1.2, 0.07, [1, 2.76]);
         break;
       case 'ambient':
         arpeggio(pick([392, 440, 523, 587, 659]) * pick([1, 2]), pick([[0, 4, 7], [0, 7, 12], [0, 4, 7, 12], [12, 7, 4, 0]]), 0.085, 0.7, 0.018, [1]);

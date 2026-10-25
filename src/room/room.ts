@@ -4,10 +4,11 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { keyed } from 'lit/directives/keyed.js';
 import { html as staticHtml, unsafeStatic } from 'lit/static-html.js';
 import { ArrowLeft, Clover, Volume2, VolumeX } from 'lucide';
-import type { GameId, Messages, Player, Prize, Win } from '../config/types';
+import type { Dealer, GameId, Messages, Player, Prize, Win } from '../config/types';
 import { boardOf, resolveVariant } from '../engine/awards';
 import type { Outcome } from '../engine/outcome';
 import { random } from '../engine/random';
+import { checkDuty, onDuty, roster } from '../engine/dealer';
 import { decide, restartRequest, rigChanged, roomOpen } from '../engine/rig';
 import { roomTheme, THEME_COLORS } from '../engine/themes';
 import { gameBoost, machineOfDay, PRIVATE_GAMES } from '../engine/tiers';
@@ -18,6 +19,7 @@ import { LuckyElement } from '../runtime/element';
 import { icon } from '../runtime/icons';
 import { reducedMotion, wait } from '../runtime/motion';
 import { sound } from '../runtime/sound';
+import defaultDealer from '../assets/dealer.svg?inline';
 import { BUILT_IN_LOCALES } from '../locales';
 import '../games';
 import './certificate';
@@ -35,6 +37,8 @@ export interface RoomConfig {
   player: Player | null;
   // The host's logo, where the room shows a brand mark; undefined: the clover.
   logo?: string;
+  // undefined: the library's own dealer.
+  dealers?: Dealer[];
   // undefined: the host page's language.
   locale?: string;
   messages: Record<string, Messages>;
@@ -86,12 +90,15 @@ export class Room extends LuckyElement {
   @query('.lk-fx') private fxCanvas?: HTMLCanvasElement;
 
   private lightsFrame = 0;
+  private dutyCheck = -1;
+  // Dealers come and go during the day: the room looks at the clock now and then.
+  private dutyClock = 0;
   private ambient = 0;
   private boost = 0;
 
   constructor() {
     super();
-    this.watch(pageLocale, restartRequest, rigChanged);
+    this.watch(pageLocale, restartRequest, rigChanged, onDuty);
   }
 
   private get theme() {
@@ -102,6 +109,11 @@ export class Room extends LuckyElement {
   protected willUpdate(changed: PropertyValues<this>) {
     const locale = this.locale();
     if (!localeLoaded(locale)) void loadLocale(locale).then(() => this.requestUpdate(), () => undefined);
+    if (changed.has('config') || this.dutyCheck !== rigChanged.value) {
+      roster.value = this.dealers.length;
+      this.dutyCheck = rigChanged.value;
+      checkDuty();
+    }
     if (!this.room || (localeLoaded(locale) && (changed.has('config') || this.room.locale !== locale))) this.room = this.context();
     fx.confetti = this.theme ? THEME_COLORS[this.theme].confetti : undefined;
     const request = restartRequest.value;
@@ -112,6 +124,10 @@ export class Room extends LuckyElement {
       this.boost = 0;
       this.go(request.game);
     }
+  }
+
+  private get dealers(): Dealer[] {
+    return this.config.dealers ?? [{ image: defaultDealer }];
   }
 
   // The configured language, else the page's, unless the developer menu forces one.
@@ -131,6 +147,7 @@ export class Room extends LuckyElement {
       prizeIds: prizes.map((prize) => prize.id),
       board: boardOf(prizes),
       player,
+      dealers: this.dealers,
       locale,
       locales: [...new Set([...BUILT_IN_LOCALES, ...Object.keys(messages)])],
       t,
@@ -293,6 +310,7 @@ export class Room extends LuckyElement {
     this.previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     addEventListener('keydown', this.onKey);
+    this.dutyClock = window.setInterval(() => checkDuty(), 15_000);
   }
 
   firstUpdated() {
@@ -316,6 +334,7 @@ export class Room extends LuckyElement {
     fx.attach(null);
     document.body.style.overflow = this.previousOverflow;
     removeEventListener('keydown', this.onKey);
+    clearInterval(this.dutyClock);
   }
 
   render() {

@@ -65,5 +65,9 @@ export default {
     noTheme: 'Nessuno',
     language: 'Lingua',
     autoLanguage: 'Automatica',
+    dealer: 'Croupier',
+    dealerShifts: "Dai turni del giorno",
+    dealerAbsent: 'Assente',
+    dealerNumber: 'Croupier {n}',
   },
 };

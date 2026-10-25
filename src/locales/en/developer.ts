@@ -65,5 +65,9 @@ export default {
     noTheme: 'None',
     language: 'Language',
     autoLanguage: 'Automatic',
+    dealer: 'Dealer',
+    dealerShifts: "From the day's shifts",
+    dealerAbsent: 'Absent',
+    dealerNumber: 'Dealer {n}',
   },
 };

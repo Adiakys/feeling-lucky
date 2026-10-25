@@ -22,7 +22,7 @@ export default {
     jackpot: 'Jackpot',
     symbol: { small: '★', big: '★★', jackpot: '★★★' },
   },
-  boost: { badge: '×{n}', title: 'Bonus of the day', odds: 'Bonus of the day: wins {n} times as likely' },
+  boost: { badge: '×{n}', title: 'Bonus of the day', odds: 'Bonus of the day: wins {n} times as likely', dealer: 'Dealer at the table', dealerOdds: 'Dealer at the table: wins {n} times as likely' },
   themes: {
     christmas: { name: 'Christmas', greeting: "Season's greetings: a prize under the tree" },
     halloween: { name: 'Halloween', greeting: 'Trick or prize?' },

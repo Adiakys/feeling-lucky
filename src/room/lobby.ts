@@ -8,6 +8,7 @@ import { range } from '../engine/random';
 import { stormNumbers } from '../engine/roulette';
 import { slotStrips, type SlotSymbol } from '../engine/slot';
 import { roomTheme, SANTA_SLEIGH } from '../engine/themes';
+import { onDuty } from '../engine/dealer';
 import { BONUS_GAMES, boostedGame, gameBoost, machineOfDay, PRIVATE_GAMES, ticketOfDay } from '../engine/tiers';
 import { card } from '../games/cards/card';
 import { coverArt } from '../games/scratch/covers';
@@ -101,6 +102,11 @@ export class Lobby extends LuckyElement {
   @property({ type: Number }) page = 0;
   @state() private takeoffShown = TAKEOFF_FROM;
   @query('.lk-grid') private grid?: HTMLElement;
+
+  constructor() {
+    super();
+    this.watch(onDuty);
+  }
 
   private strips: SlotSymbol[][] = [];
   private stripsFor?: string[];
@@ -476,6 +482,7 @@ export class Lobby extends LuckyElement {
               ${PRIVATE_GAMES.map(
                 (game, index) => html`
                   <button class="lk-table lk-table--private lk-table--${game}" style="--i: ${index}" @click=${() => this.play(game)}>
+                    ${gameBoost(game) > 1 ? boost(this.room.t, gameBoost(game), true) : nothing}
                     <div class="lk-table-body">
                       <div class="lk-art">
                         <div class="lk-mini-cards">
