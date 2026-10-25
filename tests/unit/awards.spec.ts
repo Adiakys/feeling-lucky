@@ -49,4 +49,10 @@ describe('what a win pays', () => {
     expect(await resolveVariant(mug, 'jackpot', null)).toBeNull();
     expect(await resolveVariant(pro, 'jackpot', null)).toBeNull();
   });
+
+  it('hands back the host’s very variant object, fields of its own included', async () => {
+    const months = { tier: 'big' as const, label: '3 months', months: 3 };
+    expect(await resolveVariant({ id: 'plan', name: 'Plan', icon: '', variants: [months] }, 'big', '3 months')).toBe(months);
+    expect(await resolveVariant({ id: 'plan', name: 'Plan', icon: '', variants: () => months }, 'big', null)).toBe(months);
+  });
 });

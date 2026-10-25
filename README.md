@@ -99,7 +99,22 @@ interface Win {
 - **Variants are optional.** A prize without variants is won in full, whatever the tier.
 - **Board labels:** game boards (wheel segments, pachinko pockets, cash-out steps, scratch tickets) show the variants' `short` labels.
 - **Tier symbol fallback:** a prize without variants, or with a variants function, shows the tier symbol on the board instead. Its variant is revealed on the certificate.
-- **No signing or issuing.** `onClaim` hands the win to the host.
+- **No signing or issuing.** `onClaim` hands the win to the host, which does whatever claiming means for it, e.g. closing the room and opening its own page, prefilled from the variant.
+- **Your own fields:** variants can carry fields of yours. The win hands back the very object you gave, typed as yours:
+
+```ts
+interface Plan extends Variant {
+  months: number;
+}
+
+const lucky = createFeelingLucky<Plan>({
+  prizes: [{ id: 'pro', name: 'Pro', icon: '/pro.svg', variants: [{ tier: 'big', label: '1 year', months: 12 }] }],
+  onClaim: async (win) => {
+    lucky.close();
+    router.push(`/redeem/${win.prize.id}?months=${win.variant?.months ?? 'all'}`);
+  },
+});
+```
 
 ### Developer menu
 

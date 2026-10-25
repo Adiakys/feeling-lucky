@@ -1,5 +1,5 @@
 import { resolveConfig } from './config/resolve';
-import type { FeelingLucky, FeelingLuckyConfig } from './config/types';
+import type { FeelingLucky, FeelingLuckyConfig, Variant } from './config/types';
 import { watchPageLocale } from './runtime/i18n';
 import type { Room } from './room/room';
 
@@ -7,8 +7,9 @@ export type * from './config/types';
 export { BUILT_IN as locales, en, it, es, fr, de } from './locales';
 
 // The single entry point: the room opens over the page on open(), in a shadow root of its own.
-export function createFeelingLucky(initial: FeelingLuckyConfig): FeelingLucky {
-  let config = initial;
+export function createFeelingLucky<V extends Variant = Variant>(initial: FeelingLuckyConfig<V>): FeelingLucky<V> {
+  // The room only ever hands back the host's own variant objects, so its wins are Win<V>.
+  let config = initial as unknown as FeelingLuckyConfig;
   let host: HTMLElement | null = null;
   let room: Room | null = null;
 
@@ -40,7 +41,7 @@ export function createFeelingLucky(initial: FeelingLuckyConfig): FeelingLucky {
       else remove();
     },
     update(partial) {
-      config = { ...config, ...partial };
+      config = { ...config, ...(partial as Partial<FeelingLuckyConfig>) };
       const current = room;
       if (current) void resolveConfig(config).then((resolved) => current === room && (current.config = resolved));
     },

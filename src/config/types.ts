@@ -11,17 +11,18 @@ export interface Variant {
   details?: { label: string; value: string }[];
 }
 
-export interface Prize {
+// V: the host's own variants, with any fields of theirs; the win hands back the very object it was given.
+export interface Prize<V extends Variant = Variant> {
   id: string;
   name: string;
   icon: string;
   color?: string;
-  variants?: Variant[] | ((tier: PrizeTier) => Variant | Promise<Variant>);
+  variants?: V[] | ((tier: PrizeTier) => V | Promise<V>);
 }
 
-export interface Win {
-  prize: Prize;
-  variant: Variant | null;
+export interface Win<V extends Variant = Variant> {
+  prize: Prize<V>;
+  variant: V | null;
   tier: PrizeTier;
   game: GameId;
 }
@@ -33,20 +34,20 @@ export interface Player {
 
 export type Messages = { [key: string]: string | Messages };
 
-export interface FeelingLuckyConfig {
-  prizes: Resolvable<Prize[]>;
+export interface FeelingLuckyConfig<V extends Variant = Variant> {
+  prizes: Resolvable<Prize<V>[]>;
   locale?: Resolvable<string>;
   messages?: Resolvable<Record<string, Messages>>;
   player?: Resolvable<Player>;
   logo?: Resolvable<string>;
-  onWin?: (win: Win) => void;
-  onClaim?: (win: Win) => Promise<void>;
+  onWin?: (win: Win<V>) => void;
+  onClaim?: (win: Win<V>) => Promise<void>;
   developer?: Resolvable<boolean | { passwordHash?: string }>;
 }
 
-export interface FeelingLucky {
+export interface FeelingLucky<V extends Variant = Variant> {
   open(options?: { from?: Element | { x: number; y: number } }): void;
   close(): void;
-  update(config: Partial<FeelingLuckyConfig>): void;
+  update(config: Partial<FeelingLuckyConfig<V>>): void;
   destroy(): void;
 }
