@@ -2,8 +2,24 @@
   "name": "feeling-lucky",
   "version": "0.1.0",
   "description": "A casino room for any web app: classic casino games that award the prizes you configure.",
-  "type": "module",
+  "keywords": [
+    "casino",
+    "games",
+    "prizes",
+    "gamification",
+    "web-components",
+    "lit"
+  ],
+  "homepage": "https://github.com/Adiakys/feeling-lucky#readme",
+  "bugs": {
+    "url": "https://github.com/Adiakys/feeling-lucky/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adiakys/feeling-lucky.git"
+  },
   "license": "GPL-3.0-or-later",
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -22,7 +38,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "build:demo": "vite build --config vite.demo.config.ts"
   },
   "devDependencies": {
     "@lit/context": "^1.1.6",
@@ -34,6 +51,8 @@
     "vite": "^8.3.5",
     "vitest": "^5.0.5"
   },
-  "unpkg": "./dist/feeling-lucky.iife.js",
-  "jsdelivr": "./dist/feeling-lucky.iife.js"
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
 }

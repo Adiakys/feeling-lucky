@@ -61,8 +61,6 @@ test('the developer menu forces a language over the page’s', async ({ page }) 
   const errors: string[] = [];
   await openRoom(page, errors);
   await page.keyboard.press('Control+Shift+L');
-  await page.getByLabel('Password').fill('password');
-  await page.keyboard.press('Enter');
   const language = page.locator('feeling-lucky .lk-dev-row').filter({ hasText: /^(Language|Lingua)/ }).locator('select');
   await language.selectOption('it');
   await expect(page.locator('feeling-lucky .lk-head h2')).toHaveText('Sala giochi');

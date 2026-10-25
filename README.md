@@ -2,6 +2,8 @@
 
 A casino room for any web app: players try their luck on classic casino games and win the prizes you configure.
 
+**[Live demo](https://adiakys.github.io/feeling-lucky/)**: Ctrl+Shift+L in the room opens the developer menu.
+
 - **Framework-free:** a single entry point that works with React, Angular, Vue or plain HTML.
 - **No runtime dependencies:** built with [Lit](https://lit.dev) and [Lucide](https://lucide.dev) icons, both bundled.
 - **Isolated:** the room lives in a shadow root mounted on `body`, so the host's CSS never reaches it and its CSS never leaks out.
@@ -15,7 +17,7 @@ npm install feeling-lucky
 Without a bundler, the IIFE build exposes a global:
 
 ```html
-<script src="https://unpkg.com/feeling-lucky"></script>
+<script src="https://cdn.jsdelivr.net/npm/feeling-lucky/dist/feeling-lucky.iife.js"></script>
 <script>
   const lucky = FeelingLucky.createFeelingLucky({ prizes: [/* … */] });
 </script>
@@ -194,7 +196,16 @@ npm test           # unit tests
 npm run test:e2e   # one smoke test per game
 npm run typecheck
 npm run build      # dist/: ESM + IIFE
+npm run build:demo # site/: the playground, as on GitHub Pages
 ```
+
+## Release
+
+Bump `version` in `package.json`, then push a `v<version>` tag. The release workflow:
+- runs the checks;
+- publishes the package to npm;
+- attaches the packed `.tgz` to a GitHub release;
+- deploys the playground to GitHub Pages.
 
 ## License
 
