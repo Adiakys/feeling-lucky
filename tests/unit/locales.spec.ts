@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import type { Messages } from '../../src/config/types';
-import { BUILT_IN, en } from '../../src/locales';
+import { BUILT_IN_LOCALES, en } from '../../src/locales';
+import de from '../../src/locales/de';
+import es from '../../src/locales/es';
+import fr from '../../src/locales/fr';
+import italian from '../../src/locales/it';
 
 function flatten(messages: Messages, prefix = ''): Map<string, string> {
   const entries = new Map<string, string>();
@@ -16,7 +20,13 @@ const placeholders = (text: string) => [...text.matchAll(/\{(\w+)\}/g)].map((mat
 
 const english = flatten(en);
 
-describe.each(Object.entries(BUILT_IN).filter(([locale]) => locale !== 'en'))('built-in locale %s', (_, messages) => {
+const TRANSLATIONS: Record<string, Messages> = { it: italian, es, fr, de };
+
+it('lists every translation among the built-in locales', () => {
+  expect(BUILT_IN_LOCALES.sort()).toEqual(['en', ...Object.keys(TRANSLATIONS)].sort());
+});
+
+describe.each(Object.entries(TRANSLATIONS))('built-in locale %s', (_, messages) => {
   const translated = flatten(messages);
 
   it('has exactly the English keys', () => {

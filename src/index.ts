@@ -1,10 +1,10 @@
 import { resolveConfig } from './config/resolve';
 import type { FeelingLucky, FeelingLuckyConfig, Variant } from './config/types';
-import { watchPageLocale } from './runtime/i18n';
+import { loadLocale, pageLocale, watchPageLocale } from './runtime/i18n';
 import type { Room } from './room/room';
 
 export type * from './config/types';
-export { BUILT_IN as locales, en, it, es, fr, de } from './locales';
+export { en } from './locales';
 
 // The single entry point: the room opens over the page on open(), in a shadow root of its own.
 export function createFeelingLucky<V extends Variant = Variant>(initial: FeelingLuckyConfig<V>): FeelingLucky<V> {
@@ -27,12 +27,15 @@ export function createFeelingLucky<V extends Variant = Variant>(initial: Feeling
       const origin = rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : (from as { x: number; y: number } | undefined);
       host = document.body.appendChild(document.createElement('feeling-lucky'));
       const opened = host;
-      void Promise.all([resolveConfig(config), import('./room/mount')]).then(([resolved, { mountRoom }]) => {
+      void (async () => {
+        const [resolved, { mountRoom }] = await Promise.all([resolveConfig(config), import('./room/mount')]);
+        // The room opens already speaking its language; English stands in if it fails to load.
+        await loadLocale(resolved.locale ?? pageLocale.value).catch(() => undefined);
         if (host !== opened) return;
         room = mountRoom(opened, resolved, origin);
         room.addEventListener('closed', remove);
-      }, (error) => {
-        remove();
+      })().catch((error) => {
+        if (host === opened) remove();
         console.error(error);
       });
     },

@@ -126,7 +126,7 @@ printf '%s' 'my password' | sha256sum
 
 ## Languages
 
-Every text, game names included, comes from the locale. Built in: `en`, `it`, `es`, `fr`, `de`.
+Every text, game names included, comes from the locale. Built in: `en`, `it`, `es`, `fr`, `de`. English ships with the library; the others load on demand, only when the room speaks them.
 
 - **Default locale:** without `locale`, the room follows `<html lang>` and switches when the host app changes it, falling back to `navigator.language`.
 - **Matching:** `pt-BR` uses `pt-BR`, then `pt`, then `en`.

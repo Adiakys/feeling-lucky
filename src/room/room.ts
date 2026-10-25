@@ -13,12 +13,12 @@ import { roomTheme, THEME_COLORS } from '../engine/themes';
 import { gameBoost, machineOfDay, PRIVATE_GAMES } from '../engine/tiers';
 import { defaultColor, roomContext, type GameOptions, type RoomContext } from '../runtime/context';
 import { fx, guilloche, shake, SPARKS } from '../runtime/fx';
-import { pageLocale, translator } from '../runtime/i18n';
+import { loadLocale, localeLoaded, pageLocale, translator } from '../runtime/i18n';
 import { LuckyElement } from '../runtime/element';
 import { icon } from '../runtime/icons';
 import { reducedMotion, wait } from '../runtime/motion';
 import { sound } from '../runtime/sound';
-import { BUILT_IN } from '../locales';
+import { BUILT_IN_LOCALES } from '../locales';
 import '../games';
 import './certificate';
 import './lobby';
@@ -98,8 +98,11 @@ export class Room extends LuckyElement {
     return roomTheme();
   }
 
+  // A language not loaded yet keeps the room in the current one until it arrives.
   protected willUpdate(changed: PropertyValues<this>) {
-    if (changed.has('config') || this.room?.locale !== this.locale()) this.room = this.context();
+    const locale = this.locale();
+    if (!localeLoaded(locale)) void loadLocale(locale).then(() => this.requestUpdate(), () => undefined);
+    if (!this.room || (localeLoaded(locale) && (changed.has('config') || this.room.locale !== locale))) this.room = this.context();
     fx.confetti = this.theme ? THEME_COLORS[this.theme].confetti : undefined;
     const request = restartRequest.value;
     if (request) {
@@ -111,12 +114,12 @@ export class Room extends LuckyElement {
     }
   }
 
-  // The developer menu's restart, a new language or new prizes all reach every element through a new context.
   // The configured language, else the page's, unless the developer menu forces one.
   private locale() {
     return decide('locale', {}, () => this.config.locale ?? pageLocale.value);
   }
 
+  // A new language or new prizes reach every element through a new context.
   private context(): RoomContext {
     const { prizes, player, messages } = this.config;
     const locale = this.locale();
@@ -129,7 +132,7 @@ export class Room extends LuckyElement {
       board: boardOf(prizes),
       player,
       locale,
-      locales: [...new Set([...Object.keys(BUILT_IN), ...Object.keys(messages)])],
+      locales: [...new Set([...BUILT_IN_LOCALES, ...Object.keys(messages)])],
       t,
       prize: (id) => entry(id).prize,
       icon: (id) => entry(id).prize.icon,

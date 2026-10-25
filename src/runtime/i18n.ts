@@ -1,5 +1,5 @@
 import type { Messages } from '../config/types';
-import { BUILT_IN } from '../locales';
+import { builtIn, isLoaded, loadBuiltIn } from '../locales';
 import { signal } from './signal';
 
 const readPageLocale = () => (typeof document !== 'undefined' && document.documentElement.lang) || (typeof navigator !== 'undefined' ? navigator.language : '') || 'en';
@@ -24,11 +24,14 @@ function lookup(messages: Messages | undefined, key: string): string | undefined
   return typeof node === 'string' ? node : undefined;
 }
 
+export const localeLoaded = (locale: string) => isLoaded(localeChain(locale));
+export const loadLocale = (locale: string) => loadBuiltIn(localeChain(locale));
+
 export type Translate = (key: string, params?: Record<string, string | number>) => string;
 
 // The host's messages first, then the built-in ones, along the locale chain; a missing key shows itself.
 export function translator(locale: string, custom: Record<string, Messages> = {}): Translate {
-  const sources = localeChain(locale).flatMap((code) => [custom[code], BUILT_IN[code]]);
+  const sources = localeChain(locale).flatMap((code) => [custom[code], builtIn(code)]);
   return (key, params = {}) => {
     const text = sources.reduce<string | undefined>((found, messages) => found ?? lookup(messages, key), undefined) ?? key;
     return text.replace(/\{(\w+)\}/g, (match, name: string) => (name in params ? String(params[name]) : match));
