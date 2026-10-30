@@ -1,7 +1,7 @@
 import type { Prize, Tier } from '../config/types';
 import { awardKey, prizesPaying, type Award, type Board } from './awards';
 import { pick } from './random';
-import { gamePrize, TIER_ODDS } from './tiers';
+import { gamePrize, tierOdds } from './tiers';
 
 /* The Grand Wheel: 54 segments that say what they pay; the tier picks where the wheel stops. */
 
@@ -66,21 +66,27 @@ export const boosterKeys = (segments: WheelSegment[]) => [...new Set(segments.fi
 // Where the wheel stops on the day of the Booster: each segment as likely as the tiers make it, the
 // boosted ones boost times as likely, the gain taken from the blanks.
 export function wheelLanding(segments: WheelSegment[], boosted: string, boost: number, roll = Math.random()): { index: number; tier: Tier } {
-  const { small, big, jackpot } = TIER_ODDS;
+  const tiers = tierOdds();
+  const { small, big, jackpot } = tiers;
   const count = (match: (segment: WheelSegment) => boolean) => segments.filter(match).length;
   const odds = (segment: WheelSegment) => {
     if (segment.kind === 'jackpot') return jackpot;
     if (isBonus(segment)) return (BONUS_SHARE * (small + big)) / count(isBonus);
     if (segment.kind === 'small' || segment.kind === 'big') {
       const kind = segment.kind;
-      return ((1 - BONUS_SHARE) * TIER_ODDS[kind]) / count((other) => other.kind === kind);
+      return ((1 - BONUS_SHARE) * tiers[kind]) / count((other) => other.kind === kind);
     }
     return 0;
   };
-  const weights = segments.map((segment) => odds(segment) * (segmentKey(segment) === boosted ? boost : 1));
-  const blank = (1 - weights.reduce((sum, weight) => sum + weight, 0)) / count((segment) => segment.kind === 'none');
+  const raw = segments.map((segment) => odds(segment) * (segmentKey(segment) === boosted ? boost : 1));
+  // Generous odds times a boost can pass 1: then the winning segments share the whole wheel.
+  const total = raw.reduce((sum, weight) => sum + weight, 0);
+  const weights = total > 1 ? raw.map((weight) => weight / total) : raw;
+  const blank = Math.max(0, 1 - Math.min(1, total)) / count((segment) => segment.kind === 'none');
   let left = roll;
-  const index = segments.findIndex((segment, at) => (left -= segment.kind === 'none' ? blank : weights[at]!) < 0);
+  const found = segments.findIndex((segment, at) => (left -= segment.kind === 'none' ? blank : weights[at]!) < 0);
+  // A roll a hair under 1 can run past the end by rounding: it lands on the last segment that pays.
+  const index = found >= 0 ? found : segments.reduce((last, segment, at) => (segment.kind === 'none' ? last : at), 0);
   const segment = segments[index]!;
   if (isBonus(segment)) return { index, tier: Math.random() < small / (small + big) ? 'small' : 'big' };
   return { index, tier: segment.kind as Tier };

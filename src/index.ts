@@ -1,5 +1,6 @@
 import { resolveConfig } from './config/resolve';
 import type { FeelingLucky, FeelingLuckyConfig, Variant } from './config/types';
+import { setOdds } from './engine/tiers';
 import { loadLocale, pageLocale, watchPageLocale } from './runtime/i18n';
 import type { Room } from './room/room';
 
@@ -32,6 +33,7 @@ export function createFeelingLucky<V extends Variant = Variant>(initial: Feeling
         // The room opens already speaking its language; English stands in if it fails to load.
         await loadLocale(resolved.locale ?? pageLocale.value).catch(() => undefined);
         if (host !== opened) return;
+        setOdds(resolved.odds);
         room = mountRoom(opened, resolved, origin);
         room.addEventListener('closed', remove);
       })().catch((error) => {
@@ -46,7 +48,12 @@ export function createFeelingLucky<V extends Variant = Variant>(initial: Feeling
     update(partial) {
       config = { ...config, ...(partial as Partial<FeelingLuckyConfig>) };
       const current = room;
-      if (current) void resolveConfig(config).then((resolved) => current === room && (current.config = resolved));
+      if (current)
+        void resolveConfig(config).then((resolved) => {
+          if (current !== room) return;
+          setOdds(resolved.odds);
+          current.config = resolved;
+        });
     },
     destroy() {
       remove();

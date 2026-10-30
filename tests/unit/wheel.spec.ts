@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import type { Prize, Tier } from '../../src/config/types';
 import { awardOf, boardOf, variantsOf } from '../../src/engine/awards';
-import { TIER_ODDS } from '../../src/engine/tiers';
+import { DEFAULT_ODDS, setOdds } from '../../src/engine/tiers';
 import { boosterKeys, segmentKey, wheelLanding, wheelPrize, wheelSegments, wheelTarget } from '../../src/engine/wheel';
 
 const pro: Prize = {
@@ -71,7 +71,7 @@ describe('the day of the Booster', () => {
 
   it('lands the Booster segments boost times as often, and only those', () => {
     const plain = landingOdds('jackpot', 1);
-    expect(plain((key) => key === 'jackpot')).toBeCloseTo(TIER_ODDS.jackpot, 3);
+    expect(plain((key) => key === 'jackpot')).toBeCloseTo(DEFAULT_ODDS.jackpot, 3);
     for (const key of ['jackpot', 'small:7D', 'small:', 'coin']) {
       const boosted = landingOdds(key, 4);
       expect(boosted((other) => other === key)).toBeCloseTo(4 * plain((other) => other === key), 3);
@@ -90,3 +90,17 @@ describe('the day of the Booster', () => {
     }
   });
 });
+
+describe('the wheel with the host\'s odds', () => {
+  afterEach(() => setOdds());
+
+  it('always lands, even when generous odds and the Booster together pass 1', () => {
+    setOdds({ small: 0.5, big: 0.3, jackpot: 0.1 });
+    for (let step = 0; step < 2000; step++) {
+      const { index, tier } = wheelLanding(SEGMENTS, 'jackpot', 5, (step + 0.5) / 2000);
+      expect(index).toBeGreaterThanOrEqual(0);
+      expect(tier).not.toBe('none');
+    }
+  });
+});
+

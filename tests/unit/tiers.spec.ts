@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { BONUS_GAMES, DAY_MACHINES, DAY_TICKETS, dailyBonus, drawTier, luckBoost, PRIVATE_GAMES } from '../../src/engine/tiers';
+import { afterEach, describe, expect, it } from 'vitest';
+import { BONUS_GAMES, DAY_MACHINES, DAY_TICKETS, dailyBonus, DEFAULT_ODDS, drawTier, luckBoost, PRIVATE_GAMES, setOdds, tierOdds } from '../../src/engine/tiers';
 
 describe('drawTier', () => {
   it('splits the roll into jackpot 1 in 150, big 1 in 60, small 1 in 30, otherwise nothing', () => {
@@ -11,6 +11,40 @@ describe('drawTier', () => {
     expect(drawTier(1, 0.0566)).toBe('small');
     expect(drawTier(1, 0.0567)).toBe('none');
     expect(drawTier(1, 0.999)).toBe('none');
+  });
+});
+
+describe('the host\'s odds', () => {
+  afterEach(() => setOdds());
+
+  it('replace the defaults tier by tier, keeping the default for any left out', () => {
+    setOdds({ small: 1 / 4, big: 1 / 10 });
+    expect(tierOdds()).toEqual({ small: 1 / 4, big: 1 / 10, jackpot: DEFAULT_ODDS.jackpot });
+    expect(drawTier(1, 0.0066)).toBe('jackpot');
+    expect(drawTier(1, 0.1)).toBe('big');
+    expect(drawTier(1, 0.35)).toBe('small');
+    expect(drawTier(1, 0.36)).toBe('none');
+  });
+
+  it('are the defaults when none are given', () => {
+    setOdds({ small: 0.5 });
+    setOdds();
+    expect(tierOdds()).toEqual(DEFAULT_ODDS);
+  });
+
+  it('keep each chance between 0 and 1 and scale them down when together they pass 1', () => {
+    setOdds({ small: -1, big: 2 });
+    expect(tierOdds()).toEqual({ small: 0, big: 1 / (1 + DEFAULT_ODDS.jackpot), jackpot: DEFAULT_ODDS.jackpot / (1 + DEFAULT_ODDS.jackpot) });
+    setOdds({ small: 0.6, big: 0.6, jackpot: 0.3 });
+    const { small, big, jackpot } = tierOdds();
+    expect(small + big + jackpot).toBeCloseTo(1, 10);
+    expect(drawTier(1, 0.999)).not.toBe('none');
+  });
+
+  it('are still multiplied by the bonus of the day', () => {
+    setOdds({ small: 0.1, big: 0, jackpot: 0 });
+    expect(drawTier(3, 0.29)).toBe('small');
+    expect(drawTier(3, 0.31)).toBe('none');
   });
 });
 

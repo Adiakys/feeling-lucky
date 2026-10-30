@@ -70,6 +70,7 @@ Every field takes a value, a function, or a function returning a Promise.
 | `onClaim` | `(win: Win) => Promise<void>`; shows **Claim** on the certificate | no claim button |
 | `developer` | `true` or `{ passwordHash? }`: enables the developer menu (Ctrl+Shift+L), behind a password when the hash is given | disabled |
 | `multiplayer` | base URL of a [multiplayer server](#multiplayer), or `{ url, headers? }` | single player |
+| `odds` | `{ small?, big?, jackpot? }`: how often a play wins each tier, see [Odds](#odds) | 1 in 30, 1 in 60, 1 in 150 |
 
 ```ts
 interface Prize {
@@ -119,6 +120,22 @@ const lucky = createFeelingLucky<Plan>({
   },
 });
 ```
+
+### Odds
+
+Each tier's chance per play, from 0 to 1. Leave one out and it keeps its default; leave `odds` out and the room plays by the defaults: small 1 in 30, big 1 in 60, jackpot 1 in 150, about one play in 18 winning something.
+
+```ts
+createFeelingLucky({
+  prizes,
+  odds: { small: 1 / 4, big: 1 / 10, jackpot: 1 / 30 },   // about 4 plays in 10 win
+});
+```
+
+- **Bonuses still apply:** the bonus of the day and the dealer at the table multiply these odds, as they do the defaults.
+- **Out of range:** a chance below 0 counts as 0, above 1 as 1; if together they pass 1, they are scaled down so that every play wins.
+- **The wheel follows them:** its segments land as often as the odds say, so generous odds leave fewer blanks.
+- **Multiplayer tables** are dealt by the [server](#server), which keeps its own odds.
 
 ### Developer menu
 

@@ -4,6 +4,13 @@ export type GameId = 'wheel' | 'slot' | 'roulette' | 'pachinko' | 'scratch' | 'b
 
 export type Resolvable<T> = T | (() => T | Promise<T>);
 
+// How often a play wins each tier, as a chance from 0 to 1, before any bonus multiplies it.
+export interface Odds {
+  small?: number;
+  big?: number;
+  jackpot?: number;
+}
+
 export interface Variant {
   tier: PrizeTier;
   label: string;
@@ -61,6 +68,7 @@ export interface FeelingLuckyConfig<V extends Variant = Variant> {
   onClaim?: (win: Win<V>) => Promise<void>;
   developer?: Resolvable<boolean | { passwordHash?: string }>;
   multiplayer?: Resolvable<string | Multiplayer>;
+  odds?: Resolvable<Odds>;
 }
 
 export interface FeelingLucky<V extends Variant = Variant> {
