@@ -194,6 +194,7 @@ export class Lobby extends LuckyElement {
     this.observer = new ResizeObserver((entries) =>
       entries.forEach(({ target, contentRect: { width, height } }) => {
         (target as HTMLElement).style.setProperty('--lk-art-h', String(height));
+        (target as HTMLElement).style.setProperty('--lk-art-w', String(width));
         const slot = target.querySelector<HTMLElement>('.lk-mini-slot');
         if (slot) slot.style.zoom = String(Math.min((height * 0.8) / 495, (width * 0.72) / 560));
       }),
