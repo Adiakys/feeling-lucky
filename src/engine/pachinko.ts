@@ -1,7 +1,7 @@
 import type { PrizeTier, Tier } from '../config/types';
 import { spread, type Award, type Board } from './awards';
 import { pick } from './random';
-import { TIER_ODDS } from './tiers';
+import { tierOdds } from './tiers';
 
 declare module './rig' {
   interface Decisions {
@@ -68,5 +68,6 @@ export function pachinkoPockets(redHits: number, board: Board): PachinkoPocket[]
 }
 
 export function pachinkoChance(multiplier: number, violetHit: boolean): number {
-  return Math.min(1, (TIER_ODDS.small + TIER_ODDS.big + TIER_ODDS.jackpot) * multiplier * (violetHit ? multiplier : 1));
+  const { small, big, jackpot } = tierOdds();
+  return Math.min(1, (small + big + jackpot) * multiplier * (violetHit ? multiplier : 1));
 }

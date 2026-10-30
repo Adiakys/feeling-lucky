@@ -1,4 +1,4 @@
-import type { GameId, Tier } from '../config/types';
+import type { GameId, Odds, Tier } from '../config/types';
 import { DEALER_BOOST, onDuty } from './dealer';
 import { pick } from './random';
 import { decide } from './rig';
@@ -17,7 +17,20 @@ export const BONUS_GAMES: GameId[] = ['wheel', 'slot', 'roulette', 'pachinko', '
 export const PRIVATE_GAMES: GameId[] = ['blackjack', 'holdem'];
 export const GAME_IDS: GameId[] = [...BONUS_GAMES, ...PRIVATE_GAMES];
 
-export const TIER_ODDS = { jackpot: 1 / 150, big: 1 / 60, small: 1 / 30 };
+export const DEFAULT_ODDS: Required<Odds> = { jackpot: 1 / 150, big: 1 / 60, small: 1 / 30 };
+
+// The odds every game plays by: the defaults, or the host's from the odds config.
+let odds = DEFAULT_ODDS;
+export const tierOdds = () => odds;
+
+// The host's odds over the defaults, each kept between 0 and 1; if together they pass 1,
+// they are scaled down so that every play wins something. Without odds, the defaults again.
+export function setOdds(next: Odds = {}) {
+  const pick = (tier: keyof Odds) => Math.min(1, Math.max(0, next[tier] ?? DEFAULT_ODDS[tier]));
+  const chosen = { jackpot: pick('jackpot'), big: pick('big'), small: pick('small') };
+  const total = chosen.jackpot + chosen.big + chosen.small;
+  odds = total > 1 ? { jackpot: chosen.jackpot / total, big: chosen.big / total, small: chosen.small / total } : chosen;
+}
 export const TIER_RANK: Tier[] = ['none', 'small', 'big', 'jackpot'];
 
 export type DayTicket = 'double' | 'forever';
@@ -26,10 +39,10 @@ export const DAY_TICKETS: DayTicket[] = ['double', 'forever'];
 export const DAY_MACHINES: DayMachine[] = ['takeoff', 'breakaway'];
 
 // boost multiplies every odd: the game of the day wins that many times as often.
-export function drawTier(boost = 1, roll = Math.random()): Tier {
-  if (roll < boost * TIER_ODDS.jackpot) return 'jackpot';
-  if (roll < boost * (TIER_ODDS.jackpot + TIER_ODDS.big)) return 'big';
-  if (roll < boost * (TIER_ODDS.jackpot + TIER_ODDS.big + TIER_ODDS.small)) return 'small';
+export function drawTier(boost = 1, roll = Math.random(), { jackpot, big, small } = odds): Tier {
+  if (roll < boost * jackpot) return 'jackpot';
+  if (roll < boost * (jackpot + big)) return 'big';
+  if (roll < boost * (jackpot + big + small)) return 'small';
   return 'none';
 }
 

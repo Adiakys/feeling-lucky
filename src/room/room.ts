@@ -4,7 +4,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { keyed } from 'lit/directives/keyed.js';
 import { html as staticHtml, unsafeStatic } from 'lit/static-html.js';
 import { ArrowLeft, Clover, Volume2, VolumeX } from 'lucide';
-import type { Dealer, GameId, Messages, Multiplayer, Player, Prize, Win } from '../config/types';
+import type { Dealer, GameId, Messages, Multiplayer, Odds, Player, Prize, Win } from '../config/types';
 import { boardOf, resolveVariant } from '../engine/awards';
 import type { Outcome } from '../engine/outcome';
 import { random } from '../engine/random';
@@ -45,6 +45,8 @@ export interface RoomConfig {
   messages: Record<string, Messages>;
   // undefined: the card tables are single player.
   multiplayer?: Multiplayer;
+  // undefined: the library's own odds.
+  odds?: Odds;
   onWin?: (win: Win) => void;
   onClaim?: (win: Win) => Promise<void>;
   // null: no developer menu; without a hash, no password.
