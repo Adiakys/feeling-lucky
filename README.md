@@ -294,6 +294,8 @@ Publish a GitHub release or pre-release on a `v<version>` tag, e.g. `v1.2.0` or 
 - publishes the server to NuGet through Trusted Publishing, and its image to `ghcr.io/adiakys/feeling-lucky-server`, `latest` for a release;
 - deploys the playground to GitHub Pages, for releases only.
 
+Between two releases, the **Pages** workflow, run by hand from the Actions tab or with `gh workflow run pages.yml`, deploys the playground from `main`.
+
 ## License
 
 [GPL-3.0-or-later](LICENSE)
