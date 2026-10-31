@@ -1,5 +1,6 @@
 import { html, nothing, svg, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 import { CircleHelp } from 'lucide';
 import { guilloche } from '../runtime/fx';
 import type { Translate } from '../runtime/i18n';
@@ -8,6 +9,29 @@ import { icon } from '../runtime/icons';
 import { boost } from './boost';
 
 const backdrop = guilloche(450, 400, 1.25);
+
+// A game drawn bigger than its table, as on a phone, is scaled down to fit it whole, whenever the table or the game
+// changes size, and centred with what hangs out of its box, like the slot's lever. A scale, not a zoom: a zoom would
+// leave the parts sized on the table's container units as big as before.
+const fits = new WeakMap<Element, ResizeObserver>();
+function fit(game?: Element) {
+  if (!(game instanceof HTMLElement) || fits.has(game)) return;
+  const machine = game.parentElement!;
+  const observer = new ResizeObserver(() => {
+    if (!game.isConnected) return observer.disconnect();
+    const style = getComputedStyle(machine);
+    const width = machine.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    const height = machine.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+    const scale = Math.min(1, width / game.scrollWidth, height / game.scrollHeight);
+    const shift = (overflow: number) => `${(-overflow / 2) * scale}px`;
+    game.style.scale = scale < 0.99 ? String(scale) : '';
+    game.style.translate =
+      scale < 0.99 ? `${shift(game.scrollWidth - game.offsetWidth)} ${shift(game.scrollHeight - game.offsetHeight)}` : '';
+  });
+  observer.observe(machine);
+  observer.observe(game);
+  fits.set(game, observer);
+}
 
 // The felt table every game stands on, with its bulb frame and the game's rules behind a round button.
 export function stage(
@@ -25,7 +49,7 @@ export function stage(
         <i class="lk-bulbs" aria-hidden="true"></i>
         ${multiplier && multiplier > 1 ? boost(t, multiplier, dealer) : nothing}
         <fl-rules .text=${rules}></fl-rules>
-        <div class="lk-game">${game}</div>
+        <div class="lk-game" ${ref(fit)}>${game}</div>
         ${overlay ?? nothing}
       </div>
     </div>

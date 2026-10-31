@@ -139,3 +139,11 @@
 .lk-seat .lk-seat-leave:is(:hover, :focus-visible) { outline: none; color: #fff3c4; box-shadow: inset 0 0 0 1.5px var(--lk-gold-hi), 0 0 0 2px #2a120c, 0 0 14px rgb(255 211 110 / 0.7); }
 .lk-seat .lk-seat-leave::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; padding: 5px 10px; border-radius: 8px; background: #1e0d06; box-shadow: inset 0 0 0 1px var(--lk-gold-line), 0 6px 16px rgb(0 0 0 / 0.55); color: var(--lk-gold-hi); font: 600 12px var(--font-sans, inherit); white-space: nowrap; pointer-events: none; opacity: 0; translate: -50% 4px; transition: opacity 0.2s ease, translate 0.2s ease; }
 .lk-seat .lk-seat-leave:is(:hover, :focus-visible)::after { opacity: 1; translate: -50% 0; }
+
+/* On a phone the cards are drawn bigger on the narrower felt, and the rack stays under the table, dealer or not. */
+@media (max-width: 640px) {
+  .lk-ctable { padding: 0 20px 40px; --lk-card-w: 10cqw; }
+  .lk-ctable.has-dealer { --lk-card-w: 8cqw; }
+  .lk-cards:has(.has-dealer) .lk-cards-rack { width: 100%; margin-top: 0; }
+  .lk-cards-controls .lk-btn--lg { padding: 0 14px 0 12px; }
+}

@@ -391,8 +391,12 @@ export class Room extends LuckyElement {
         <div class="lk-twinkles" aria-hidden="true"><i></i><i></i></div>
 
         <header class="lk-head">
-          <button class="lk-btn lk-btn--outline" @click=${() => (view === 'lobby' ? this.close() : this.go('lobby'))}>
-            ${icon(ArrowLeft)} ${view === 'lobby' ? this.t('backToOverview') : this.t('backToGames')}
+          <button
+            class="lk-btn lk-btn--outline lk-back"
+            aria-label=${view === 'lobby' ? this.t('backToOverview') : this.t('backToGames')}
+            @click=${() => (view === 'lobby' ? this.close() : this.go('lobby'))}
+          >
+            ${icon(ArrowLeft)}<span>${view === 'lobby' ? this.t('backToOverview') : this.t('backToGames')}</span>
           </button>
           <h2>${title}${view !== 'lobby' ? html`<small>${this.t('title')}</small>` : nothing}</h2>
           <div class="lk-end">

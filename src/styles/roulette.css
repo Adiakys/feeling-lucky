@@ -1,7 +1,8 @@
 /* Roulette */
 
 .lk-roulette { display: grid; grid-template-rows: minmax(0, 1fr) auto auto auto; justify-items: center; gap: 12px; width: min(880px, calc(100cqw - 16px)); height: calc(100cqh - 8px); }
-.lk-rl-board { position: relative; container-type: inline-size; height: 100%; aspect-ratio: 1; }
+/* As high as its row, but never wider than the table: on a phone held upright the row is the taller of the two. */
+.lk-rl-board { position: relative; container-type: inline-size; align-self: center; height: min(100%, 100cqw - 16px); aspect-ratio: 1; }
 
 .lk-track { display: block; width: 100%; height: 100%; overflow: visible; user-select: none; }
 .lk-track-cell text { font: 700 11px var(--font-sans, inherit); fill: #fbf3df; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
@@ -122,3 +123,11 @@
   .lk-rl-medallion.is-struck, .lk-rl-medallion.is-result, .lk-rl-medallion small, .lk-rt-bolt > path, .lk-rt-bolt > rect, .lk-rt-bolt > g, .lk-track-cell.is-struck path, .lk-rl-struck, .lk-rl-result.is-struck, .lk-roulette--storm .lk-rl-board svg:not(.fl-icon) { animation: none; }
 }
 
+
+/* On a phone the chips and the buttons do not fit on one line: the buttons go under the chips, the quick ones beside them. */
+@media (max-width: 640px) {
+  .lk-rl-rack { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 14px; }
+  .lk-rl-rack > .lk-rl-actions { justify-self: center; }
+  .lk-rl-actions { flex-wrap: wrap; justify-content: center; }
+  .lk-rl-quick { position: static; flex-direction: row; }
+}

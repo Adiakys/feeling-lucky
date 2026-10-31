@@ -1,6 +1,6 @@
 /* Grand Wheel */
 
-.lk-wheel-game { width: clamp(240px, calc(100cqh - 188px), 520px); }
+.lk-wheel-game { width: clamp(240px, min(100cqh - 188px, 100cqw), 520px); }
 .lk-wheel-wrap { position: relative; width: 100%; aspect-ratio: 1; touch-action: none; cursor: grab; }
 .lk-wheel-wrap.is-grabbed { cursor: grabbing; }
 .lk-wheel-wrap { clip-path: inset(-20% round 28px); transition: clip-path 0.6s var(--lk-ease-out); }

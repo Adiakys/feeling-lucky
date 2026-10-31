@@ -184,7 +184,9 @@ export class Scratch extends LuckyElement {
     if (!canvas || (event.type === 'pointermove' && !event.buttons) || (canvas.dataset.spot === 'award' && !this.matched)) return;
     const context = canvas.getContext('2d')!;
     const rect = canvas.getBoundingClientRect();
-    const point = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+    // The foil is drawn at its layout size; on a phone the ticket may be shown smaller than that.
+    const scale = canvas.offsetWidth / rect.width;
+    const point = { x: (event.clientX - rect.left) * scale, y: (event.clientY - rect.top) * scale };
     const from = this.last ?? point;
     const distance = Math.hypot(point.x - from.x, point.y - from.y);
     const steps = Math.max(1, Math.ceil(distance / 4));
