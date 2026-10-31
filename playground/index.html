@@ -3,17 +3,157 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>feeling-lucky playground</title>
-    <style>
-      body { margin: 0; min-height: 100vh; display: grid; place-content: center; gap: 12px; font: 15px system-ui, sans-serif; background: #f4f1ea; color: #222; }
-      button, select { font: inherit; padding: 8px 14px; }
-    </style>
+    <title>feeling-lucky · Casino games and a prize wheel for any web app</title>
+    <meta name="description" content="Open-source JavaScript library that adds a casino room to any web app: prize wheel, roulette, slot machine, pachinko, scratch card, blackjack and Texas Hold'em, awarding the prizes you configure. Works with React, Angular, Vue or plain HTML." />
+    <link rel="canonical" href="https://adiakys.github.io/feeling-lucky/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#1a0d07" />
+    <meta name="color-scheme" content="dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="feeling-lucky" />
+    <meta property="og:url" content="https://adiakys.github.io/feeling-lucky/" />
+    <meta property="og:title" content="feeling-lucky: a casino room for any web app" />
+    <meta property="og:description" content="Prize wheel, roulette, slot, pachinko, scratch card, blackjack and Texas Hold'em that award the prizes you configure. One function, any framework." />
+    <meta property="og:image" content="https://adiakys.github.io/feeling-lucky/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The feeling-lucky games room: scratch card, Grand Wheel, slot, roulette and pachinko tables on green felt" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "feeling-lucky",
+        "description": "A casino room for any web app: classic casino games that award the prizes you configure.",
+        "url": "https://adiakys.github.io/feeling-lucky/",
+        "codeRepository": "https://github.com/Adiakys/feeling-lucky",
+        "programmingLanguage": ["TypeScript", "C#"],
+        "runtimePlatform": "Web browser",
+        "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+        "image": "https://adiakys.github.io/feeling-lucky/og.png",
+        "keywords": "prize wheel, spin the wheel, scratch card, slot machine, roulette, pachinko, blackjack, Texas Hold'em, gamification, rewards, web components"
+      }
+    </script>
+    <link rel="stylesheet" href="./landing.css" />
   </head>
   <body>
-    <button id="open">Feeling lucky</button>
-    <label>Language <select id="lang"><option>en</option><option>it</option><option>es</option><option>fr</option><option>de</option></select></label>
-    <label>Logo <select id="logo"><option value="">Clover</option><option value="acme">Acme</option></select></label>
-    <label>Prizes <select id="count"><option value="3">3</option><option value="1">1</option><option value="6">6</option></select></label>
+    <header class="bar">
+      <a class="brand" href="./" aria-label="feeling-lucky home">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.17 7.83 2 22" /><path d="M4.02 12a2.827 2.827 0 1 1 3.81-4.17A2.827 2.827 0 1 1 12 4.02a2.827 2.827 0 1 1 4.17 3.81A2.827 2.827 0 1 1 19.98 12a2.827 2.827 0 1 1-3.81 4.17A2.827 2.827 0 1 1 12 19.98a2.827 2.827 0 1 1-4.17-3.81A1 1 0 1 1 4 12" /><path d="m7.83 7.83 8.34 8.34" /></svg>
+        feeling-lucky
+      </a>
+      <nav aria-label="Sections">
+        <a href="#games">Games</a>
+        <a href="#features">Features</a>
+        <a href="#start">Get started</a>
+        <a href="https://github.com/Adiakys/feeling-lucky">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Open source · TypeScript · No runtime dependencies</p>
+          <h1>A casino room for any web&nbsp;app</h1>
+          <p class="lede">
+            Give your users a prize wheel, roulette, a slot machine, pachinko, scratch cards, blackjack and Texas Hold'em.
+            Every game awards the prizes you configure, and your app decides what winning means. One function, with React,
+            Angular, Vue or plain HTML.
+          </p>
+          <div class="actions">
+            <button id="open" class="cta" type="button">Feeling lucky</button>
+            <div class="install">
+              <code>npm i @adiakys/feeling-lucky</code>
+              <button class="copy" type="button" data-copy="npm install @adiakys/feeling-lucky" aria-label="Copy the install command">Copy</button>
+            </div>
+          </div>
+          <form class="tune" aria-label="Demo settings">
+            <label>Room language <select id="lang"><option value="en">English</option><option value="it">Italiano</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option></select></label>
+            <label>Logo <select id="logo"><option value="">Clover</option><option value="acme">Acme</option></select></label>
+            <label>Prizes <select id="count"><option value="3">3</option><option value="1">1</option><option value="6">6</option></select></label>
+          </form>
+          <p class="hint">In the room, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd> opens the developer menu: force a jackpot, switch themes and bonuses.</p>
+        </div>
+        <figure class="frame hero-shot">
+          <img src="/shots/lobby.jpg" width="1280" height="800" fetchpriority="high" alt="The games room lobby: scratch card, Grand Wheel, slot machine, roulette and pachinko tables under a marquee of lights" />
+        </figure>
+      </section>
+
+      <section id="games" class="games" aria-labelledby="games-title">
+        <h2 id="games-title">Seven games, one room</h2>
+        <p class="section-lede">The main hall opens on five games; the Salon Privé, one swipe away, deals cards against the house. Every play draws its prize tier first, then the game stages it.</p>
+        <ul class="game-grid">
+          <li><button type="button" class="game" data-open><img src="/shots/wheel.jpg" width="960" height="600" loading="lazy" alt="The Grand Wheel, a prize wheel with segments for every prize" /><span><b>Grand Wheel</b>Spin it or fling it. Besides prizes, it lands on Prize Hunt, Heads or Tails and a Pachinko bonus.</span></button></li>
+          <li><button type="button" class="game" data-open><img src="/shots/roulette.jpg" width="960" height="600" loading="lazy" alt="Roulette wheel and betting table with chips" /><span><b>Roulette</b>Place your chips on the felt, then throw the ball. A straight-up hit is the jackpot.</span></button></li>
+          <li><button type="button" class="game" data-open><img src="/shots/slot.jpg" width="960" height="600" loading="lazy" alt="Slot machine with three reels" /><span><b>Slot machine</b>Three symbols on the line. On its bonus days, Takeoff or Breakaway takes its place.</span></button></li>
+          <li><button type="button" class="game" data-open><img src="/shots/pachinko.jpg" width="960" height="600" loading="lazy" alt="Pachinko board with pegs and prize pockets" /><span><b>Pachinko</b>Drop the ball through the pegs: the pocket it falls in decides the prize.</span></button></li>
+          <li><button type="button" class="game" data-open><img src="/shots/scratch.jpg" width="960" height="600" loading="lazy" alt="Scratch card with a silver foil" /><span><b>Scratch card</b>Scratch the foil and find three matching logos. Double Luck and Forever on bonus days.</span></button></li>
+          <li><button type="button" class="game" data-open><img src="/shots/blackjack.jpg" width="960" height="600" loading="lazy" alt="Blackjack table with the dealer" /><span><b>Blackjack</b>Beat the dealer in the Salon Privé, alone or at a shared table with other players.</span></button></li>
+          <li><button type="button" class="game" data-open><img src="/shots/holdem.jpg" width="960" height="600" loading="lazy" alt="Texas Hold'em poker table" /><span><b>Texas Hold'em</b>Heads-up against the house, or with up to five players on the multiplayer server.</span></button></li>
+          <li class="extras">
+            <p><b>Bonus of the day</b>One main-hall game a day gets its own variant and boosted odds, the same for everyone.</p>
+            <p><b>Dealers on shift</b>Three shifts a day at the card tables, when hands win twice as often. Bring your own dealers.</p>
+            <p><b>Seasons</b>Christmas, Halloween, Easter and August dress the room, from the calendar.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <h2 id="features-title">Drops into your app, stays out of its way</h2>
+        <ul class="feature-grid">
+          <li><h3>Any framework</h3><p>One entry point for React, Angular, Vue, Svelte or plain HTML. ESM for bundlers, an IIFE build for a script tag.</p></li>
+          <li><h3>Isolated</h3><p>The room lives in a shadow root mounted on <code>body</code>: your CSS never reaches it and its CSS never leaks out.</p></li>
+          <li><h3>Your prizes, your odds</h3><p>Plans, credits, coupons, merch: prizes come with small, big and jackpot variants, and you choose how often each tier wins.</p></li>
+          <li><h3>Your claim flow</h3><p><code>onWin</code> and <code>onClaim</code> hand the win to your app, typed with your own fields. No signing or issuing in the library.</p></li>
+          <li><h3>Five languages</h3><p>English, Italian, Spanish, French and German, following the page's language. Add more or override any text.</p></li>
+          <li><h3>Multiplayer tables</h3><p>Blackjack and Hold'em at shared tables of five, dealt by an ASP.NET Core server from NuGet or a ready-made container.</p></li>
+        </ul>
+      </section>
+
+      <section id="start" class="start" aria-labelledby="start-title">
+        <div>
+          <h2 id="start-title">Get started</h2>
+          <p class="section-lede">Install the package, describe your prizes and open the room from any button. The room grows out of the element you pass.</p>
+          <p class="links">
+            <a href="https://github.com/Adiakys/feeling-lucky#readme">Documentation</a>
+            <a href="https://www.npmjs.com/package/@adiakys/feeling-lucky">npm</a>
+            <a href="https://www.nuget.org/packages/Adiakys.FeelingLucky">NuGet server</a>
+          </p>
+        </div>
+        <pre class="frame code"><code><span class="c">// npm install @adiakys/feeling-lucky</span>
+<span class="k">import</span> { createFeelingLucky } <span class="k">from</span> <span class="s">'@adiakys/feeling-lucky'</span>;
+
+<span class="k">const</span> lucky = createFeelingLucky({
+  prizes: [
+    {
+      id: <span class="s">'pro'</span>,
+      name: <span class="s">'Pro plan'</span>,
+      icon: <span class="s">'/icons/pro.svg'</span>,
+      variants: [
+        { tier: <span class="s">'small'</span>, label: <span class="s">'7 days'</span>, short: <span class="s">'7D'</span> },
+        { tier: <span class="s">'big'</span>, label: <span class="s">'1 year'</span>, short: <span class="s">'1Y'</span> },
+      ],
+    },
+  ],
+  onClaim: <span class="k">async</span> (win) =&gt; redeem(win),
+});
+
+button.addEventListener(<span class="s">'click'</span>, (event) =&gt;
+  lucky.open({ from: event.currentTarget }));</code></pre>
+      </section>
+    </main>
+
+    <footer>
+      <p>feeling-lucky is free software under the <a href="https://github.com/Adiakys/feeling-lucky/blob/main/LICENSE">GPL-3.0-or-later</a>.</p>
+      <p>
+        <a href="https://github.com/Adiakys/feeling-lucky">GitHub</a> ·
+        <a href="https://www.npmjs.com/package/@adiakys/feeling-lucky">npm</a> ·
+        <a href="https://www.nuget.org/packages/Adiakys.FeelingLucky">NuGet</a> ·
+        <a href="https://github.com/Adiakys/feeling-lucky/pkgs/container/feeling-lucky-server">Container</a>
+      </p>
+    </footer>
     <script type="module" src="./main.ts"></script>
   </body>
 </html>

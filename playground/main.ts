@@ -47,4 +47,12 @@ const lucky = createFeelingLucky({
 lang.addEventListener('change', () => (document.documentElement.lang = lang.value));
 count.addEventListener('change', () => lucky.update({}));
 logo.addEventListener('change', () => lucky.update({ logo: logo.value ? ACME : undefined }));
-document.querySelector('#open')!.addEventListener('click', (event) => lucky.open({ from: event.currentTarget as Element }));
+for (const button of document.querySelectorAll('#open, [data-open]'))
+  button.addEventListener('click', (event) => lucky.open({ from: event.currentTarget as Element }));
+
+for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]'))
+  button.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(button.dataset.copy!);
+    button.textContent = 'Copied';
+    setTimeout(() => (button.textContent = 'Copy'), 1600);
+  });

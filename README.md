@@ -259,7 +259,8 @@ src/
   developer/    developer menu, lazy
   styles/       CSS per area
   locales/      en, it, es, fr, de
-playground/     demo with sample prizes
+playground/     landing page and demo with sample prizes
+scripts/        the landing page's screenshots
 tests/          unit (engine), e2e
 server/         multiplayer server: the NuGet package, the standalone host, tests
 ```
@@ -281,6 +282,7 @@ npm run test:e2e   # one smoke test per game
 npm run typecheck
 npm run build      # dist/: ESM + IIFE
 npm run build:demo # site/: the playground, as on GitHub Pages
+npm run screenshots # the landing page's pictures, from the running playground
 ```
 
 ## Release

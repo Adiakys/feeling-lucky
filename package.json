@@ -4,13 +4,30 @@
   "description": "A casino room for any web app: classic casino games that award the prizes you configure.",
   "keywords": [
     "casino",
+    "casino-games",
     "games",
     "prizes",
+    "rewards",
     "gamification",
+    "loyalty",
+    "prize-wheel",
+    "spin-the-wheel",
+    "wheel-of-fortune",
+    "scratch-card",
+    "slot-machine",
+    "roulette",
+    "pachinko",
+    "blackjack",
+    "poker",
+    "texas-holdem",
     "web-components",
-    "lit"
+    "lit",
+    "react",
+    "vue",
+    "angular",
+    "typescript"
   ],
-  "homepage": "https://github.com/Adiakys/feeling-lucky#readme",
+  "homepage": "https://adiakys.github.io/feeling-lucky/",
   "bugs": {
     "url": "https://github.com/Adiakys/feeling-lucky/issues"
   },
@@ -39,7 +56,8 @@
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit",
     "prepare": "npm run build",
-    "build:demo": "vite build --config vite.demo.config.ts"
+    "build:demo": "vite build --config vite.demo.config.ts",
+    "screenshots": "node scripts/screenshots.mjs"
   },
   "devDependencies": {
     "@lit/context": "^1.1.6",
